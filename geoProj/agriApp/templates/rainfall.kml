@@ -1,0 +1,98 @@
+{% extends "gis/kml/base.kml" %}
+{% block placemarks %}{% for place in places %}
+{% if place.intersection %}
+	<Placemark>
+		<styleUrl>{% if place.gridcode == 1 %}#rain-1{% elif place.gridcode == 2  %}#rain-2{% elif place.gridcode == 3  %}#rain-3{% elif place.gridcode == 4  %}#rain-4{% elif place.gridcode == 5  %}#rain-5{% elif place.gridcode == 6  %}#rain-6{% elif place.gridcode == 7  %}#rain-7{% else %}#rain-8{% endif %}</styleUrl>
+		<name>{% if place.gridcode == 1 %}Yearly Rainfall: 1716-1998mm{% elif place.gridcode == 2  %}Yearly Rainfall: 1999-2166mm{% elif place.gridcode == 3  %}Yearly Rainfall: 2167-2310mm{% elif place.gridcode == 4  %}Yearly Rainfall: 2311-2478mm{% elif place.gridcode == 5  %}Yearly Rainfall: 2479-2700mm{% elif place.gridcode == 6  %}Yearly Rainfall: 2700mm+{% else %}Yearly Rainfall: {% endif %}</name>
+		{{ place.intersection.kml|safe }}
+	</Placemark>{% endif %}{% endfor %}
+  		<Style id='rain-1'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501400FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='rain-2'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501478FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='rain-3'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>5000FF14</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+                <Style id='rain-4'>
+                        <LineStyle>
+                                <color>50000000</color>
+                                <width>6</width>
+                        </LineStyle>
+                        <PolyStyle>
+                                <color>50FF78B4</color>
+                                <fill>1</fill>
+                                <outline>2</outline>
+                        </PolyStyle>
+                </Style>
+                <Style id='rain-5'>
+                        <LineStyle>
+                                <color>50000000</color>
+                                <width>6</width>
+                        </LineStyle>
+                        <PolyStyle>
+                                <color>50F00014</color>
+                                <fill>1</fill>
+                                <outline>2</outline>
+                        </PolyStyle>
+                </Style>
+                <Style id='rain-6'>
+                        <LineStyle>
+                                <color>50000000</color>
+                                <width>6</width>
+                        </LineStyle>
+                        <PolyStyle>
+                                <color>501478FF</color>
+                                <fill>1</fill>
+                                <outline>2</outline>
+                        </PolyStyle>
+                </Style>
+                <Style id='rain-7'>
+                        <LineStyle>
+                                <color>50000000</color>
+                                <width>6</width>
+                        </LineStyle>
+                        <PolyStyle>
+                                <color>50143CD2</color>
+                                <fill>1</fill>
+                                <outline>2</outline>
+                        </PolyStyle>
+                </Style>
+                <Style id='rain-8'>
+                        <LineStyle>
+                                <color>50000000</color>
+                                <width>6</width>
+                        </LineStyle>
+                        <PolyStyle>
+                                <color>501400FF</color>
+                                <fill>1</fill>
+                                <outline>2</outline>
+                        </PolyStyle>
+                </Style>
+
+  {% endblock %}

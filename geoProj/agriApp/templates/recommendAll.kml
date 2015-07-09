@@ -1,0 +1,53 @@
+{% extends "base.kml" %}
+{% block placemarks %}{% for place in places %}
+{% if place.intersection %}
+  <Placemark>
+  <styleUrl>#2</styleUrl>
+    <name>Suitability of Soil Per Plant</name>
+<description>{% with lowRain="1500" highRain="3000" highpH="7.4" lowpH="6.1" highEC="4.0" lowEC="0.0" highClayComp="35.0" lowClayComp="10.0" %}Breadfruit: {% if place.gridcode > 0 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode > 0 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}{% endwith %}
+{% with lowRain="1320" highRain="1390" highpH="6.5" lowpH="6.0" highEC="1.3" lowEC="0.0" highClayComp="40.0" lowClayComp="8.0" %}Lettuce: {% if place.gridcode == -1 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == -1 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}{% endwith %}
+{% with lowRain="800" highRain="1219" highpH="6.5" lowpH="5.5" highEC="1.2" lowEC="0.0" highClayComp="30.0" lowClayComp="15.0" %}Papaya: {% if place.gridcode == -1 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == -1 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}{% endwith %}
+{% with lowRain="1622" highRain="1825" highpH="6.8" lowpH="6.0" highEC="4.0" lowEC="0.0" highClayComp="28.0" lowClayComp="15.0" %}Tomato: {% if place.gridcode == 1 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == 1 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}{% endwith %}
+{% with lowRain="1300" highRain="2600" highpH="7.0" lowpH="5.5" highEC="4.0" lowEC="0.0" highClayComp="28.0" lowClayComp="15.0" %}Cucumber: {% if place.gridcode > 0 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode > 0 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}{% endwith %}
+{% with lowRain="2600" highRain="3900" highpH="5.7" lowpH="5.0" highEC="4.0" lowEC="0.0" highClayComp="55.0" lowClayComp="20.0" %}Corn: {% if place.gridcode == 5 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == 5 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}{% endwith %}
+{% with lowRain="1300" highRain="2600" highpH="7.0" lowpH="5.5" highEC="1.2" lowEC="0.0" highClayComp="28.0" lowClayComp="15.0" %}Sweet Pepper: {% if place.gridcode > 0 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode > 0 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}{% endwith %}
+{% with lowRain="600" highRain="1200" highpH="5.5" lowpH="4.5" highEC="2.0" lowEC="0.0" highClayComp="55.0" lowClayComp="15.0" %}Pineapple: {% if place.gridcode == -1 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == -1 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}{% endwith %}
+{% with lowRain="600" highRain="1000" highpH="6.8" lowpH="6.0" highEC="8.0" lowEC="0.0" highClayComp="55.0" lowClayComp="10.0" %}Pigeon Peas: {% if place.gridcode == -1 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == -1 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}{% endwith %}
+{% with lowRain="1825" highRain="2190" highpH="7.0" lowpH="6.0" highEC="2.0" lowEC="0.0" highClayComp="30.0" lowClayComp="15.0" %}Citrus: {% if place.gridcode == 1 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == 2 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == 3 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == 1 or place.gridcode == 2 or place.gridcode == 3 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}{% endwith %}
+{% with lowRain="1825" highRain="2190" highpH="6.8" lowpH="5.5" highEC="4.0" lowEC="0.0" highClayComp="40.0" lowClayComp="15.0" %}Sweet Potato: {% if place.gridcode == 1 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == 2 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == 3 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == 1 or place.gridcode == 2 or place.gridcode == 3 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}{% endwith %}</description>
+    {{ place.intersection.kml|safe }}
+  </Placemark>{% endif %}{% endfor %}
+  		<Style id='1'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>503CFF14</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='2'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501478FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='3'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501400FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		{% endblock %}

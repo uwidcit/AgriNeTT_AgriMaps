@@ -1,0 +1,96 @@
+{% extends "gis/kml/base.kml" %}
+{% block placemarks %}{% for place in places %}
+	{% if place.intersection %}<Placemark>
+		<styleUrl>{% if "FOREST" in place.classifaca %}#poly-forest{% elif "GRASS" in place.classifaca %}#poly-grass{% elif "COCONUT" in place.classifaca %}#poly-coconut{% elif "AGRICULTURAL" in place.classifaca %}#poly-agriculture{% elif "BAMBOO" in place.classifaca %}#poly-bamboo{% elif "QUARRIES" in  place.classifaca %}#poly-quarry{% elif "RESIDENTIAL" in place.classifaca  %}#poly-residential{% else %}#poly-other{% endif %}</styleUrl>
+		<name>{% if place.classifaca %}Classification: {{ place.classifaca|title }}{% else %}Classification: No Data{% endif %}</name>
+		{{ place.intersection.kml|safe }}
+	</Placemark>{% endif %}{% endfor %}
+  		<Style id='poly-forest'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>5014B400</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='poly-grass'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>5014B482</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='poly-coconut'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>5014B4AA</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-agriculture'>
+			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>5014B4E6</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-residential'>
+			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>5014B4FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-other'>
+			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501478FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-quarry'>
+			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>50143CD2</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-bamboo'>
+			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501400FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  {% endblock %}

@@ -1,0 +1,109 @@
+{% extends "base.kml" %}
+{% block placemarks %}{% for place in places %}
+ {% if place.intersection %}<Placemark>
+  <styleUrl>{% if place.capability == 1 %}#poly-3F5BA9-9-51{% elif place.capability == 2  %}#poly-3F5BA9-9-52{% elif place.capability == 3  %}#poly-3F5BA9-9-53{% elif place.capability == 4  %}#poly-3F5BA9-9-54{% elif place.capability == 5  %}#poly-3F5BA9-9-55{% elif place.capability == 6  %}#poly-3F5BA9-9-56{% elif place.capability == 7  %}#poly-3F5BA9-9-57{% else %}#poly-3F5BA9-9-58{% endif %}</styleUrl>
+    <name>{% if place.domsoil.SoilSeriesName %}Soil Name: {{ place.domsoil.SoilSeriesName|title }}{% else %}Soil Name: No Data{% endif %}
+{% if place.domsoil.SoilOrderName %}Soil Order: {{ place.domsoil.SoilOrderName|title }}{% else %}Soil Order: No Data{% endif %}
+{% if place.soilCode %}Soil SubClass: {{ place.soilCode|title }}{% else %}Soil SubClass: No Data{% endif %}</name>
+    <description>{% if place.capability %}{% if place.capability == 1 %}Capability: I{% elif place.capability == 2  %}Capability: II{% elif place.capability == 3  %}Capability: III{% elif place.capability == 4  %}Capability: IV{% elif place.capability == 5  %}Capability: V{% elif place.capability == 6  %}Capability: VI{% elif place.capability == 7  %}Capability: VII{% elif place.capability == 8  %}Capability: VIII{% else %}Capability: No Data{% endif %}{% else %}Capability: No Data{{% endif %}
+{%if place.domslope %}Domslope:{% if place.domslope == 1 %} 0-3% {% elif place.domslope == 2  %} 3-9% {% elif place.domslope == 3 %} 9-17% {% elif place.domslope == 4 %} 17-36% {% elif place.domslope == 5 %} 36-58% {% else %} 58-100% {% endif %}{% else %}Domslope: No Data {% endif %}
+{%if place.erosion %}Erosion:{% if place.erosion == 1 %} 1 {% elif place.erosion == 2  %} 2 {% elif place.erosion == 3 %} 3 {% elif place.erosion == 4 %} 4 {% elif place.erosion == 5 %} 5 {% else %} - {% endif %}{% else %}Erosion: No Data {% endif %}
+    {% if place.domsoil.phhorizon1 %}pH: {{ place.domsoil.phhorizon1|title }}{% else %}pH: No Data{% endif %}
+    {% if place.domsoil.sand_prop %}Sand Content: {{ place.domsoil.sand_prop|title }}%{% else %}sand_prop: No Data{% endif %}
+    {% if place.domsoil.silt_prop %}Silt Content: {{ place.domsoil.silt_prop|title }}%{% else %}silt_prop: No Data{% endif %}
+    {% if place.domsoil.clay_prop %}Clay Content: {{ place.domsoil.clay_prop|title }}%{% else %}clay_prop: No Data{% endif %}
+    {% if place.domsoil.mg %}Mg: {{ place.domsoil.mg|title }} m.e/100g{% else %}Mg: No Data{% endif %}
+    {% if place.domsoil.k %}K: {{ place.domsoil.k|title }} m.e/100g{% else %}K: No Data{% endif %}
+    {% if place.domsoil.cec %}CEC: {{ place.domsoil.cec|title }} m.e/100g{% else %}CEC: No Data{% endif %}
+    {% if place.domsoil.c %}Oragnic Carbon: {{ place.domsoil.c|title }}%{% else %}Oragnic Carbon: No Data{% endif %}</description>
+    {{ place.intersection.kml|safe }}
+  </Placemark>{% endif %}{% endfor %}
+  		<Style id='poly-3F5BA9-9-51'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>50147800</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='poly-3F5BA9-9-52'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>5014F000</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='poly-3F5BA9-9-53'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>50147882</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-3F5BA9-9-54'>
+			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>50780078</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-3F5BA9-9-55'>
+			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>50F00014</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-3F5BA9-9-56'>
+			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>5014F0FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-3F5BA9-9-57'>
+			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501478FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-3F5BA9-9-58'>
+			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501400FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		{% endblock %}

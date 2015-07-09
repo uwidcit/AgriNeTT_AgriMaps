@@ -1,0 +1,43 @@
+{% extends "base.kml" %}
+{% block placemarks %}{% for place in places %}
+{% if place.intersection %}
+  <Placemark>
+  <styleUrl>#2</styleUrl>
+    <name></name>
+	<description>{{ place.domsoil.phhorizon1|title }},{{ place.domsoil.clay_prop|title }},{{ place.gridcode }}</description>
+    {{ place.intersection.kml|safe }}
+  </Placemark>{% endif %}{% endfor %}
+  		<Style id='1'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>503CFF14</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='2'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501478FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='3'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501400FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		{% endblock %}

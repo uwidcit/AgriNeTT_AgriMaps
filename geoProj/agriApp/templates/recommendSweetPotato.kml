@@ -1,0 +1,43 @@
+{% extends "base.kml" %}
+{% block placemarks %}{% with lowRain="1825" highRain="2190" highpH="6.8" lowpH="5.5" highEC="4.0" lowEC="0.0" highClayComp="40.0" lowClayComp="15.0" %}{% for place in places %}
+{% if place.intersection %}
+  <Placemark>
+  <styleUrl>{% if place.gridcode == 1 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}#1{% elif place.gridcode == 2 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}#1{% elif place.gridcode == 3 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}#1{% elif place.gridcode == 1 or place.gridcode == 2 or place.gridcode == 3 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}#2{% else %}#3{% endif %}</styleUrl>
+    <name>{% if place.gridcode == 1 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == 2 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == 3 and place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH and place.domsoil.cec|add:'0' <= highEC and place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Suitable{% elif place.gridcode == 1 or place.gridcode == 2 or place.gridcode == 3 or place.domsoil.phhorizon1|add:'0' >= lowpH and place.domsoil.phhorizon1|add:'0' <= highpH or place.domsoil.cec|add:'0' <= highEC or place.domsoil.clay_prop <= highClayComp and place.domsoil.clay_prop >= lowClayComp %}Partially Suitable{% else %}Not Suitable{% endif %}</name>
+    <description>{% if place.domsoil.phhorizon1|add:'0' > highpH %}3{% elif place.domsoil.phhorizon1|add:'0' < lowpH  %}1{% elif place.domsoil.phhorizon1 %}2{% else %}0{% endif %},{% if place.domsoil.cec|add:'0' > highEC %}3{% elif place.domsoil.cec|add:'0' < lowEC  %}1{% elif place.domsoil.cec %}2{% else %}0{% endif %},{% if place.domsoil.clay_prop > highClayComp %}3{% elif place.domsoil.clay_prop < lowClayComp %}1{% elif place.domsoil.clay_prop %}2{% else %}0{% endif %},{% if place.gridcode == 1 or place.gridcode == 2 or place.gridcode == 3 %}2{% else %}3{% endif %},{{ highpH }},{{ place.domsoil.phhorizon1|title }},{{ lowpH }},{{ highEC }},{{ place.domsoil.cec|title }},{{ place.domsoil.clay_prop|title }},{{ highClayComp }},{{ lowClayComp }},{{ highRain }},{{ lowRain }},{{ place.gridcode }}</description>
+    {{ place.intersection.kml|safe }}
+  </Placemark>{% endif %}{% endfor %}{% endwith %}
+  		<Style id='1'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>503CFF14</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='2'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501478FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='3'>
+  			<LineStyle>
+	  			<color>50000000</color>
+	  			<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>501400FF</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		{% endblock %}

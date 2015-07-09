@@ -1,0 +1,43 @@
+{% extends "gis/kml/base.kml" %}
+{% block placemarks %}{% for place in places %}
+  <Placemark>
+  <styleUrl>{% if place.coconut|lower == 'suitable' %}#poly-3F5BA9-9-51{% elif place.coconut|lower == 'fair'  %}#poly-3F5BA9-9-52{% place.coconut|lower == 'utilized'  %}#poly-3F5BA9-9-53{% endif %}</styleUrl>
+    <name>{% if place.soilName %}Soil Name: {{ place.soilName|title }}{% else %}Soil Name: No Data{% endif %}</name>
+    {{ place.kml|safe }}
+  </Placemark>{% endfor %}
+  		<Style id='poly-3F5BA9-9-51'>
+			<PolyStyle>
+				<color>5014B428</color>
+				<fill>1</fill>
+				<outline>1</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='poly-3F5BA9-9-52'>
+			<PolyStyle>
+				<color>5014B428</color>
+				<fill>1</fill>
+				<outline>1</outline>
+			</PolyStyle>
+		</Style>
+  		<Style id='poly-3F5BA9-9-53'>
+			<PolyStyle>
+				<color>501478F0</color>
+				<fill>1</fill>
+				<outline>1</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-3F5BA9-9-54'>
+			<PolyStyle>
+				<color>501400FA</color>
+				<fill>1</fill>
+				<outline>1</outline>
+			</PolyStyle>
+		</Style>
+		<Style id='poly-3F5BA9-9-55'>
+			<PolyStyle>
+				<color>501400FA</color>
+				<fill>1</fill>
+				<outline>1</outline>
+			</PolyStyle>
+		</Style>
+		{% endblock %}

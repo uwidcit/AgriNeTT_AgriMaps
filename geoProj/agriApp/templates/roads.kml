@@ -1,0 +1,14 @@
+{% extends "gis/kml/base.kml" %}
+{% block placemarks %}{% for road in roads %}
+	<Placemark>
+		<styleUrl>#line-1</styleUrl>
+		<name>{% if road.streetgis %}Road Name: {{ road.streetgis|title }}{% else %}No Road Name{% endif %}</name>
+		{{ road.kml|safe }}
+	</Placemark>{% endfor %}
+	<Style id='line-1'>
+		<LineStyle>
+			<color>50323232</color>
+			<width>6</width>
+		</LineStyle>
+	</Style>
+  {% endblock %}

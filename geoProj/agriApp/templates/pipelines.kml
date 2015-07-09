@@ -1,0 +1,13 @@
+{% extends "gis/kml/base.kml" %}
+{% block placemarks %}{% for place in places %}
+	<Placemark>
+		<styleUrl>#line-2</styleUrl>
+		{{ place.kml|safe }}
+	</Placemark>{% endfor %}
+	<Style id='line-2'>
+		<LineStyle>
+			<color>50F03214</color>
+			<width>4</width>
+		</LineStyle>
+	</Style>
+  {% endblock %}

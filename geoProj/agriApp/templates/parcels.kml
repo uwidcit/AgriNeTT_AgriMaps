@@ -1,0 +1,19 @@
+{% extends "gis/kml/base.kml" %}
+{% block placemarks %}{% for parcel in parcels %}
+{% if parcel.intersection %}
+  <Placemark>
+  <styleUrl>#poly-1</styleUrl>
+    {{ parcel.intersection.kml|safe }}
+  </Placemark>{% endif %}{% endfor %}
+  	<Style id='poly-1'>
+  		<LineStyle>
+	  	<color>50000000</color>
+			<width>6</width>
+		</LineStyle>
+	<PolyStyle>
+		<color>5014B428</color>
+				<fill>1</fill>
+				<outline>2</outline>
+			</PolyStyle>
+		</Style>
+		{% endblock %}
