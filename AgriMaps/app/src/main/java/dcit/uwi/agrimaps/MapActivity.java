@@ -2228,6 +2228,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         tableL.addView(tbrow);
     }
 
+    //Function to map rainfall ids to the rainfall amounts
     private String getRainfallAmt(int i) {
         String amt = "";
         if (i == 1) {
