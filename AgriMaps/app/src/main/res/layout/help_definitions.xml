@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/help_definitions">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        android:layout_weight="1"
+        android:id="@+id/generalhelp_table"
+        android:layout_above="@+id/dismiss_button3">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="0,1">
+
+        <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_column="0"
+            android:text="Fetch Radius"
+            android:autoText="false"
+            android:layout_gravity="top|center"
+            android:textSize="16dp"
+            android:id="@+id/help_co3"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="The application at default fetches all data in a range of 1000 meteres from location. To change this please tap settings button in bar and set the radius fetch to desired number."
+            android:layout_column="1"
+            android:textSize="16dp"
+            android:id="@+id/help_col4"
+            />
+
+    </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/material_deep_teal_500" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:text="Profile Mode/Recommender Mode"
+                android:autoText="false"
+                android:layout_gravity="top|center"
+                android:textSize="16dp"
+                android:id="@+id/help_col5"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="To switch the application between the default profile mode and the recommender mode, tap the R or P button in the action bar. After tapping this button a notice will appear at the bottom of your screen and the views in the left hand drawer will change."
+                android:layout_column="1"
+                android:textSize="16dp"
+                android:id="@+id/help_col6"
+                />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/material_deep_teal_500" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:text="Location"
+                android:autoText="false"
+                android:layout_gravity="top|center"
+                android:textSize="16dp"
+                android:id="@+id/help_col1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="To change the location of interest, press screen at desired point for a minimum of 5 seconds. A prompt will appear to confirm that you would like to change the interest location to that point."
+                android:layout_column="1"
+                android:textSize="16dp"
+                android:id="@+id/help_col2"
+                />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/material_deep_teal_500" />
+    </TableLayout>
+    </ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dismiss"
+        android:id="@+id/dismiss_button3"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/help_cropfamilies">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        android:layout_weight="1"
+        android:id="@+id/help_table"
+        android:layout_above="@+id/dismiss_button2">
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="1"
+            >
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:text="Corn"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/ph_col1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="These recommendations may also be applicable to Barley, Wheat, Rice, Millet, Sorghum, Khuskhus, other cereals and members of the Gramineae group"
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/ph_col2"
+                    />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/material_deep_teal_500" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:layout_marginRight="2dp"
+                    android:text="Breadfruit"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/cec_col1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="These recommendations may also be applicable to Jackfruit and other members of the Moraceae group "
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/cec_col2" />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/material_deep_teal_500" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:layout_marginRight="2dp"
+                    android:text="Tomato"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/clay_col1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="These recommendations may also be applicable to Egg-Plant and some members of the Solanaceae group "
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/clay_col2" />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/material_deep_teal_500" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:layout_marginRight="2dp"
+                    android:text="Cucumber"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/p_col1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="These recommendations may also be applicable to Pumpkin, Squash, Zucchini, Watermelon and other members of the Cucurbitaceae group"
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/p_col2" />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/material_deep_teal_500" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:layout_marginRight="2dp"
+                    android:text="Pigeon Pea"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/k_col1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="These recommendations may also be applicable to Lentils, Chickpeas and other legumes."
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/k_col2" />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/material_deep_teal_500" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:layout_marginRight="2dp"
+                    android:text="Onion"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/ec_col1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="These recommendations may also be applicable to Garlic, Chives and other members of the Allioideae group"
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/ec_col2" />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/material_deep_teal_500" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:layout_marginRight="2dp"
+                    android:text="Taro/Dasheen"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/mg_col1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="These recommendations may also be applicable to Eddoes, Tannia and other members of the Araceae group"
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/mg_col2" />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/material_deep_teal_500" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:layout_marginRight="2dp"
+                    android:text="Sweet Pepper"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/ca_col1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="These recommendations may also be applicable to Hot Pepper, Pimento Pepper and some members of the Capsicum group."
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/ca_col2" />
+
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dismiss"
+        android:id="@+id/dismiss_button2"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

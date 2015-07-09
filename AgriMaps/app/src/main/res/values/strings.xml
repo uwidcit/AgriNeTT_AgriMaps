@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AgriMaps</string>
+
+    <string-array name="view_array">
+        <item>Rivers</item>
+        <item>Soil Series</item>
+        <item>Roads</item>
+        <item>Contours</item>
+        <item>Rainfall</item>
+        <item>Land Use</item>
+    </string-array>
+    <string-array name="recommender_crops">
+        <item>Cassava</item>
+        <item>Onion</item>
+        <item>Cocoa</item>
+        <item>Lettuce</item>
+        <item>Tomatoes</item>
+        <item>Breadfruit</item>
+        <item>Papaya</item>
+        <item>Cucumber</item>
+        <item>Pigeon Peas</item>
+        <item>Corn</item>
+        <item>Sweet Pepper</item>
+        <item>Pineapple</item>
+        <item>Citrus</item>
+        <item>Sweet Potato</item>
+        <item>All Crops</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="ph_low">ph low</string>
+    <string name="ph_high">ph high</string>
+    <string name="ph_optimal">ph optimal</string>
+    <string name="cec_low"></string>
+    <string name="cec_high"></string>
+    <string name="cec_optimal"></string>
+    <string name="rain1">Class 1: 1716-1998mm</string>
+    <string name="rain2">Class 2: 1999-2166mm</string>
+    <string name="rain3">Class 3: 2167-2310mm</string>
+    <string name="rain4">Class 4: 2311-2478mm</string>
+    <string name="rain5">Class 5: 2479-2700mm</string>
+    <string name="pref_send_report">Send crash reports</string>
+    <string name="pref_send_report_summary">Helps to fix bugs</string>
+    <string name="pref_sync_frequency">Sync frequency</string>
+    <string name="pref_sync_frequency_summary">Set the sync frequency</string>
+    <string name="pref_user_name">Set username</string>
+    <string name="pref_user_name_summary">Set your username</string>
+    <string name="pref_user_profile">User Profile</string>
+    <string name="pref_update_setting">Update Settings</string>
+    <string name="title_activity_oko">oko</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

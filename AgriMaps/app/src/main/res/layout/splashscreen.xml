@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffffff"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/splashId"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:id="@+id/splash_view"
+            android:src="@drawable/logotemp"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
+            android:adjustViewBounds="false"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/app_name"
+            android:id="@+id/app_subName"
+            android:layout_below="@+id/splash_view"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ff000000" />
+
+        <ProgressBar
+            android:id="@+id/mainSpinner1"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            style="?android:attr/progressBarStyleInverse"
+            android:layout_below="@id/app_subName"
+            android:layout_centerHorizontal="true">
+        </ProgressBar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Loading"
+            android:paddingTop="10dp"
+            android:id="@+id/app_loading"
+            android:layout_below="@+id/mainSpinner1"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffd0d0d0"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center" />
+
+
+    </LinearLayout>
+</LinearLayout>

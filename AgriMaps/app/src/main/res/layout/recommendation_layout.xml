@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/recommendation_layoutid">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:layout_below="@+id/dismiss_button3"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_gravity="top">
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="1"
+            android:stretchColumns="2"
+            android:id="@+id/recommendation_table"
+            android:layout_above="@+id/dismiss_button3"
+            >
+       <!--     <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:text="Issue"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/header1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Recommendation"
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/header2"
+                    />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/material_deep_teal_500" />!
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:text="pH"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/ph_recommend1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/ph_recommend2"
+                    />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/material_deep_teal_500" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:layout_marginRight="2dp"
+                    android:text="CEC"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/cec_recommend1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/cec_recommend2" />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/material_deep_teal_500" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:layout_marginRight="2dp"
+                    android:text="Soil Composition"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="16dp"
+                    android:id="@+id/soil_recommend1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:layout_column="1"
+                    android:textSize="16dp"
+                    android:id="@+id/soil_recommend2" />
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/material_deep_teal_500" />
+
+-->
+        </TableLayout>
+    </ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dismiss"
+        android:id="@+id/dismiss_button3" />
+</LinearLayout>

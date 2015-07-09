@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/subseries_definitions">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        android:layout_weight="1"
+        android:id="@+id/help_table"
+        android:layout_above="@+id/dismiss_button2">
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="1"
+        >
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:text="pH"
+                android:autoText="false"
+                android:layout_gravity="top|center"
+                android:textSize="16dp"
+                android:id="@+id/ph_col1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="This indicates a soil's level of acidity or alkalinity. Soils with pH below 4.5 are considered very acidic, those with pH values above 8.0 are strongly alkaline and those near a pH of 7.0 are neutral."
+                android:layout_column="1"
+                android:textSize="16dp"
+                android:id="@+id/ph_col2"
+                />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/material_deep_teal_500" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:layout_marginRight="2dp"
+                android:text="CEC"
+                android:autoText="false"
+                android:layout_gravity="top|center"
+                android:textSize="16dp"
+                android:id="@+id/cec_col1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="CEC (Cation Exchange Capacity) gives an indication of a soil's ability to store positively charged nutrients like Calcium and Magnesium."
+                android:layout_column="1"
+                android:textSize="16dp"
+                android:id="@+id/cec_col2" />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/material_deep_teal_500" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:layout_marginRight="2dp"
+                android:text="Sand %"
+                android:autoText="false"
+                android:layout_gravity="top|center"
+                android:textSize="16dp"
+                android:id="@+id/sand_col1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="This represents the proportion of coarse grains in a soil."
+                android:layout_column="1"
+                android:textSize="16dp"
+                android:id="@+id/sand_col2" />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/material_deep_teal_500" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:layout_marginRight="2dp"
+                android:text="Clay %"
+                android:autoText="false"
+                android:layout_gravity="top|center"
+                android:textSize="16dp"
+                android:id="@+id/clay_col1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="This represents the proportion of fine particles in a soil."
+                android:layout_column="1"
+                android:textSize="16dp"
+                android:id="@+id/clay_col2" />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/material_deep_teal_500" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:layout_marginRight="2dp"
+                android:text="P"
+                android:autoText="false"
+                android:layout_gravity="top|center"
+                android:textSize="16dp"
+                android:id="@+id/p_col1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="P (Phosphorous) is an primary plant nutrient required for photosynthesis, root formation and growth."
+                android:layout_column="1"
+                android:textSize="16dp"
+                android:id="@+id/p_col2" />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/material_deep_teal_500" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:layout_marginRight="2dp"
+                android:text="K"
+                android:autoText="false"
+                android:layout_gravity="top|center"
+                android:textSize="16dp"
+                android:id="@+id/k_col1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="K (Potassium) is an primary plant nutrient needed for photosynthesis and protein formation."
+                android:layout_column="1"
+                android:textSize="16dp"
+                android:id="@+id/k_col2" />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/material_deep_teal_500" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:layout_marginRight="2dp"
+                android:text="EC"
+                android:autoText="false"
+                android:layout_gravity="top|center"
+                android:textSize="16dp"
+                android:id="@+id/ec_col1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="EC (Electrical Conductivity) gives and indication of the amount of soluble salts present in a soil. "
+                android:layout_column="1"
+                android:textSize="16dp"
+                android:id="@+id/ec_col2" />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/material_deep_teal_500" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:layout_marginRight="2dp"
+                android:text="MG"
+                android:autoText="false"
+                android:layout_gravity="top|center"
+                android:textSize="16dp"
+                android:id="@+id/mg_col1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Mg (Magnesium) is a secondary nutrient which plays a central role in chlorophyll formation required for photosynthesis, enzyme activation and plant respiration."
+                android:layout_column="1"
+                android:textSize="16dp"
+                android:id="@+id/mg_col2" />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/material_deep_teal_500" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:layout_marginRight="2dp"
+                android:text="Ca"
+                android:autoText="false"
+                android:layout_gravity="top|center"
+                android:textSize="16dp"
+                android:id="@+id/ca_col1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Ca (Calcium) is a secondary plant nutrient which serves to promote root and leaf development, activate plant enzymes and strengthens cell walls"
+                android:layout_column="1"
+                android:textSize="16dp"
+                android:id="@+id/ca_col2" />
+
+        </TableRow>
+
+    </TableLayout>
+    </ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dismiss"
+        android:id="@+id/dismiss_button2"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

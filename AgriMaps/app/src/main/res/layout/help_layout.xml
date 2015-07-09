@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/help_dialog">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Instructions"
+            android:id="@+id/button_generalHelp"
+            android:layout_weight="1"
+            android:background="#ffffffff" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/material_deep_teal_500"
+        android:id="@+id/sep1"
+        android:layout_below="@+id/button_generalHelp" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Soil Series Definitions"
+            android:id="@+id/button_soilSeriesDefinitions"
+            android:layout_below="@+id/sep1"
+            android:layout_alignParentLeft="true"
+            android:background="#ffffffff"
+            android:layout_alignParentStart="true" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/material_deep_teal_500"
+        android:id="@+id/sep2"
+        android:layout_below="@+id/button_soilSeriesDefinitions" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crop Families"
+            android:id="@+id/button_cropFamilies"
+            android:background="#ffffffff"
+            android:layout_below="@+id/sep2" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/material_deep_teal_500"
+        android:id="@+id/sep3"
+        android:layout_below="@+id/button_cropFamilies" />
+</RelativeLayout>
