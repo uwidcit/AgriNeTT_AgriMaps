@@ -223,6 +223,8 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         // On startup render activity_map.xml
         super.onCreate(savedInstanceState);
         Log.v("state", "++ ON CREATE ++");
+
+        //Initial Activity is set to a loading screen
         splashScreen = new Dialog(this, android.R.style.Theme_Holo_NoActionBar_Fullscreen);
         splashScreen.setCancelable(false);
         splashScreen.setCanceledOnTouchOutside(false);
@@ -302,7 +304,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         mapOverlay = new MapEventsOverlay(this, this);
         mapView.getOverlays().add(0, mapOverlay);
 
-        //initialize\
+        //initialize refresh button on the map
         ImageButton refreshButton = (ImageButton) findViewById(R.id.refreshButton);
         refreshButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -313,6 +315,8 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
 
                 if (checkLocation() == true) {
                     if (checkInternet() == true) {
+                        //If there is location finding enabled and there is internet
+                        //then the current Location of the user is found
                         showToast("Determining Current Location");
                         getLocation();
                     }else{
@@ -351,7 +355,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
 
         //Check if the location services for application is working
         if (checkLocation() && checkInternet()) {
-            Log.e("Location", "Getting Location");
+            Log.i("Location", "Getting Location");
             location = getLocation();
         } else if(!checkLocation() && checkInternet()){// if no location services are available then alert user
             Log.e("Location", "Check GPS failed");
@@ -403,6 +407,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
 
         mTitle = getTitle();
 
+        //Setup of drawer for usage by user
         viewOptions = getResources().getStringArray(R.array.view_array);
         recommendOptions  = getResources().getStringArray(R.array.recommender_crops);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -416,6 +421,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 R.layout.drawer_list_item, viewOptions));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
+        //Setup of the Legend Button
         viewLegend = (Button) findViewById(R.id.button_legend);
         viewLegend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -423,6 +429,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 final Dialog yourDialog = new Dialog(context);
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
                 View layout = null;
+                //Legend button changes contents based on the current overlay being seen by the user.
                 if (option.equalsIgnoreCase("soilCapability")) {
                     layout = inflater.inflate(R.layout.legend_soils, (ViewGroup) findViewById(R.id.legend_Soils));
                 } else if (option.equalsIgnoreCase("rainfall")) {
@@ -445,6 +452,8 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 yourDialog.show();
             }
         });
+
+        //Landmarks button in the recommender is setup to generate new contents each time it is loaded
         viewLandMarks = (Button) findViewById(R.id.button_landmarks);
         viewLandMarks.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -504,7 +513,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                     });
                     yourDialog.show();
                 } catch (Exception e) {
-                    Log.e("Big error", e + "");
+                    Log.e("Drawer Init", e + "");
                 }
             }
         });
