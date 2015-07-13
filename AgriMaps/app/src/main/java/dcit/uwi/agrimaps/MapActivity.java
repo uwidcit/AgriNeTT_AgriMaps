@@ -1698,7 +1698,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     private String parseRString(String mDescription) {
         String descriptionBuilder = "";
         String[] recommendations = mDescription.split(",");
-        Log.i("Description Before Parsing", mDescription + "");
+        Log.i("Description Parsing", mDescription + "");
         if (Integer.parseInt(recommendations[0]) == 3) {
             //pH too high
             descriptionBuilder = descriptionBuilder + "Soil is too Acidic";
@@ -1845,7 +1845,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 k.mStyle="3";
                 k.mName = "Not Suitable";
             }
-            Log.i("Description Before Parsing", mDescription + "");
+            Log.i("Description Parsing", mDescription + "");
 
         } catch (Exception e) {
             descriptionBuilder = "No Data";
