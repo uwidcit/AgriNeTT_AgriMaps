@@ -746,7 +746,6 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     public boolean checkInternet() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo internetInfo = cm.getActiveNetworkInfo();
-
         return internetInfo != null && internetInfo.isConnected();
     }
 
