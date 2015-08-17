@@ -1314,7 +1314,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
             }
         }
     }
-
+    HashMap<String,String> legendKeep= new HashMap<>();
     //Function to which starts an asynchronous task which runs and fetches the required information
     //from the server before storing such data in an overlay array for usage by the user.
     private class asyncKMZfetch extends AsyncTask<String, Void, String> {
@@ -1382,8 +1382,20 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                             if (k.mDescription != null) {
                                 k.mDescription = k.mDescription.replaceAll("\\n", "<br/>");
                             }
+                            if(option.equalsIgnoreCase("contours")) {
+                                String height=k.mName.split(" ")[3];
+                                if(!legendKeep.containsKey(height)) {
+                                    legendKeep.put(height, "");
+                                }
+                            }
                         }
-
+                        if(option.equalsIgnoreCase("contours")) {
+                            int legendSize=legendKeep.size();
+                            Log.i("Legend size is:"," "+legendSize);
+                            for(int i=0;i<legendSize;i++){
+                                Log.i("Legend thing is:",legendKeep.toString());
+                            }
+                        }
                         if(option.equalsIgnoreCase("soilCapability")||option.equalsIgnoreCase("rainfall")||option.equalsIgnoreCase("landuse")) {
                             KmlFeature.Styler styler = new profileKmlStyler(kmlDocument, mapView);
                             viewOverlays.add((FolderOverlay) kmlDocument.mKmlRoot.buildOverlay(mapView, null, styler, kmlDocument));
@@ -2227,6 +2239,12 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         tableL.addView(tbrow);
     }
 
+    private int getGreenToRedGradientByValue(int currentValue, int maxValue) {
+        int r = ( (255 * currentValue) / maxValue );
+        int g = ( 255 * (maxValue-currentValue) ) / maxValue;
+        int b = 0;
+        return ((r&0x0ff)<<16)|((g&0x0ff)<<8)|(b&0x0ff);
+    }
     //Function to map raw rainfall ids to rainfall amounts
     private String getRainfallAmt(int i) {
         String amt = "";

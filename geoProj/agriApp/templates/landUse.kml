@@ -1,7 +1,7 @@
 {% extends "gis/kml/base.kml" %}
 {% block placemarks %}{% for place in places %}
 	{% if place.intersection %}<Placemark>
-		<styleUrl>{% if "FOREST" in place.classifaca %}#poly-forest{% elif "GRASS" in place.classifaca %}#poly-grass{% elif "COCONUT" in place.classifaca %}#poly-coconut{% elif "AGRICULTURAL" in place.classifaca %}#poly-agriculture{% elif "BAMBOO" in place.classifaca %}#poly-bamboo{% elif "QUARRIES" in  place.classifaca %}#poly-quarry{% elif "RESIDENTIAL" in place.classifaca  %}#poly-residential{% else %}#poly-other{% endif %}</styleUrl>
+		<styleUrl>{% if "FOREST" in place.classifaca|upper %}#poly-forest{% elif "GRASS" in place.classifaca|upper %}#poly-grass{% elif "COCONUT" in place.classifaca|upper %}#poly-coconut{% elif "AGRICULTURAL" in place.classifaca|upper %}#poly-agriculture{% elif "BAMBOO" in place.classifaca|upper %}#poly-bamboo{% elif "QUARRIES" in  place.classifaca|upper %}#poly-quarry{% elif "RESIDENTIAL" in place.classifaca|upper  %}#poly-residential{% else %}#poly-other{% endif %}</styleUrl>
 		<name>{% if place.classifaca %}Classification: {{ place.classifaca|title }}{% else %}Classification: No Data{% endif %}</name>
 		{{ place.intersection.kml|safe }}
 	</Placemark>{% endif %}{% endfor %}
