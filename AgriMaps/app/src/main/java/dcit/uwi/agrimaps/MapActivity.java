@@ -2180,7 +2180,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 } else if (recommendations[0] == 1) {
                     //pH too low
                     addRow(recommendTable,"Soil pH","Soil is too Acidic. The actual pH is " + actualph +
-                            " while the recommended range is " + lowph + " - " + highph + ". To heighten the pH of soil, apply lime in either grounded or powdered form.");
+                            " while the recommended range is " + lowph + " - " + highph + ". To raise the pH of soil, do a lime requirement test and apply lime.");
                 } else {
                     //pH is optimum
                 }
@@ -2193,7 +2193,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 } else if (recommendations[1] == 1) {
                     //soil too low
                     addRow(recommendTable,"Soil Composition","The Soil is made up of " + actualClay +
-                            "% Clay which is less than the recommended amount of " + lowClay + "% ,Irrigate soil to improve composition.");
+                            "% Clay which is less than the recommended amount of " + lowClay + "%. Irrigate soil to maintain adequate moisture.");
                 } else {
                     //soil is optimum
                 }
@@ -2203,13 +2203,13 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                     addRow(recommendTable,"Rainfall","There is too much Annual Rainfall at this location, Expected Rainfall: " +
                             getRainfallAmt((int) gridcode) +
                             " vs Recommended Rainfall for this crop: " + lowRainfall + "-" + highRainfall + "mm. " +
-                            "Install drainage channels to improve water flow.");
+                            "Install appropriate drainage to improve water flow.");
                 } else if (recommendations[2] == 1) {
                     //soil too low
                     addRow(recommendTable,"Rainfall","There is too little Annual Rainfall at this location, Expected Rainfall: " +
                             getRainfallAmt((int) gridcode) +
                             " vs Recommended Rainfall for this crop: " + lowRainfall + "-" + highRainfall + "mm. " +
-                            "Add a water irrigation system.");
+                            "Install an irrigation system.");
                 } else {
                     //soil is optimum
                 }
