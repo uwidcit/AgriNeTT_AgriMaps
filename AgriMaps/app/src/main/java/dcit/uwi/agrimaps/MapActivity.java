@@ -2175,11 +2175,11 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
 
                 if (recommendations[0] == 3) {
                     //pH too high
-                    addRow(recommendTable,"Soil pH","Soil is too Acidic. The actual pH is " + actualph +
+                    addRow(recommendTable,"Soil pH","Soil is too Alkaline. The actual pH is " + actualph +
                             " while the recommended range is " + lowph + " - " + highph + ". To lower the pH of soil, apply elemental sulphur or ammonium sulphate fertilizers.");
                 } else if (recommendations[0] == 1) {
                     //pH too low
-                    addRow(recommendTable,"Soil pH","Soil is too Alkaline. The actual pH is " + actualph +
+                    addRow(recommendTable,"Soil pH","Soil is too Acidic. The actual pH is " + actualph +
                             " while the recommended range is " + lowph + " - " + highph + ". To heighten the pH of soil, apply lime in either grounded or powdered form.");
                 } else {
                     //pH is optimum
