@@ -1314,7 +1314,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
             }
         }
     }
-    HashMap<String,String> legendKeep= new HashMap<>();
+
     //Function to which starts an asynchronous task which runs and fetches the required information
     //from the server before storing such data in an overlay array for usage by the user.
     private class asyncKMZfetch extends AsyncTask<String, Void, String> {
@@ -1368,13 +1368,13 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         protected void onPostExecute(String result) {
             if (kmlDocument != null && result.equalsIgnoreCase("true")) {
                 try {
-                    overlaySet.add(option);
                     ArrayList<KmlFeature> myList = kmlDocument.mKmlRoot.mItems;
 
                     //TODO
                     //style list for changing the style of the legend etc.
                     String saveDescription = "";
                     if (myList != null && !myList.isEmpty()) {
+                        overlaySet.add(option);
                         Iterator<KmlFeature> iter = myList.iterator();
                         int mIDcount = 0;
                         while (iter.hasNext()) {
@@ -1382,20 +1382,9 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                             if (k.mDescription != null) {
                                 k.mDescription = k.mDescription.replaceAll("\\n", "<br/>");
                             }
-                            if(option.equalsIgnoreCase("contours")) {
-                                String height=k.mName.split(" ")[3];
-                                if(!legendKeep.containsKey(height)) {
-                                    legendKeep.put(height, "");
-                                }
-                            }
+
                         }
-                        if(option.equalsIgnoreCase("contours")) {
-                            int legendSize=legendKeep.size();
-                            Log.i("Legend size is:"," "+legendSize);
-                            for(int i=0;i<legendSize;i++){
-                                Log.i("Legend thing is:",legendKeep.toString());
-                            }
-                        }
+
                         if(option.equalsIgnoreCase("soilCapability")||option.equalsIgnoreCase("rainfall")||option.equalsIgnoreCase("landuse")) {
                             KmlFeature.Styler styler = new profileKmlStyler(kmlDocument, mapView);
                             viewOverlays.add((FolderOverlay) kmlDocument.mKmlRoot.buildOverlay(mapView, null, styler, kmlDocument));
@@ -1712,11 +1701,11 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         Log.i("Description Parsing", mDescription + "");
         if (Integer.parseInt(recommendations[0]) == 3) {
             //pH too high
-            descriptionBuilder = descriptionBuilder + "Soil is too Acidic";
+            descriptionBuilder = descriptionBuilder + "Soil is too Alkaline";
 
         } else if (Integer.parseInt(recommendations[0]) == 1) {
             //pH too low
-            descriptionBuilder = descriptionBuilder + "Soil is too Alkaline";
+            descriptionBuilder = descriptionBuilder + "Soil is too Acidic";
         } else {
             //pH is optimum
             descriptionBuilder = descriptionBuilder + "Soil pH is Optimal";
@@ -1807,11 +1796,11 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
             } else if (actualph < lowph) {
                 recommendations[0] = 1;
                 //pH too low
-                descriptionBuilder = descriptionBuilder + "Soil is too Alkaline";
+                descriptionBuilder = descriptionBuilder + "Soil is too Acidic";
             } else {
                 recommendations[0] = 3;
                 //pH too high
-                descriptionBuilder = descriptionBuilder + "Soil is too Acidic";
+                descriptionBuilder = descriptionBuilder + "Soil is too Alkaline";
             }
             /*
             if (actualEC <= highEC) {
@@ -2176,7 +2165,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 if (recommendations[0] == 3) {
                     //pH too high
                     addRow(recommendTable,"Soil pH","Soil is too Alkaline. The actual pH is " + actualph +
-                            " while the recommended range is " + lowph + " - " + highph + ". To lower the pH of soil, apply elemental sulphur or ammonium sulphate fertilizers.");
+                            " while the recommended range is " + lowph + " - " + highph + ". Seek professional assistance on this issue.");
                 } else if (recommendations[0] == 1) {
                     //pH too low
                     addRow(recommendTable,"Soil pH","Soil is too Acidic. The actual pH is " + actualph +
@@ -2188,7 +2177,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 if (recommendations[1] == 3) {
                     //soil too high
                     addRow(recommendTable,"Soil Composition","The Soil is made up of " + actualClay +
-                            "% Clay which is more than the recommended amount of " + highClay + "%. Install drainage channels to improve composition");
+                            "% Clay which is more than the recommended amount of " + highClay + "%. Install drainage channels to improve composition.");
 
                 } else if (recommendations[1] == 1) {
                     //soil too low
@@ -2199,14 +2188,14 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 }
 
                 if (recommendations[2] == 3) {
-                    //soil too high
-                    addRow(recommendTable,"Rainfall","There is too much Annual Rainfall at this location, Expected Rainfall: " +
+                    //Rainfall too high
+                    addRow(recommendTable,"Rainfall","There is too much Annual Rainfall at this location. Expected Rainfall: " +
                             getRainfallAmt((int) gridcode) +
                             " vs Recommended Rainfall for this crop: " + lowRainfall + "-" + highRainfall + "mm. " +
                             "Install appropriate drainage to improve water flow.");
                 } else if (recommendations[2] == 1) {
-                    //soil too low
-                    addRow(recommendTable,"Rainfall","There is too little Annual Rainfall at this location, Expected Rainfall: " +
+                    //Rainfall too low
+                    addRow(recommendTable,"Rainfall","There is too little Annual Rainfall at this location. Expected Rainfall: " +
                             getRainfallAmt((int) gridcode) +
                             " vs Recommended Rainfall for this crop: " + lowRainfall + "-" + highRainfall + "mm. " +
                             "Install an irrigation system.");
@@ -2239,12 +2228,6 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         tableL.addView(tbrow);
     }
 
-    private int getGreenToRedGradientByValue(int currentValue, int maxValue) {
-        int r = ( (255 * currentValue) / maxValue );
-        int g = ( 255 * (maxValue-currentValue) ) / maxValue;
-        int b = 0;
-        return ((r&0x0ff)<<16)|((g&0x0ff)<<8)|(b&0x0ff);
-    }
     //Function to map raw rainfall ids to rainfall amounts
     private String getRainfallAmt(int i) {
         String amt = "";
