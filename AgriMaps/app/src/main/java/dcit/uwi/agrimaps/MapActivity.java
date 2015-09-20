@@ -746,7 +746,6 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     public boolean checkInternet() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo internetInfo = cm.getActiveNetworkInfo();
-
         return internetInfo != null && internetInfo.isConnected();
     }
 
@@ -1369,13 +1368,13 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         protected void onPostExecute(String result) {
             if (kmlDocument != null && result.equalsIgnoreCase("true")) {
                 try {
-                    overlaySet.add(option);
                     ArrayList<KmlFeature> myList = kmlDocument.mKmlRoot.mItems;
 
                     //TODO
                     //style list for changing the style of the legend etc.
                     String saveDescription = "";
                     if (myList != null && !myList.isEmpty()) {
+                        overlaySet.add(option);
                         Iterator<KmlFeature> iter = myList.iterator();
                         int mIDcount = 0;
                         while (iter.hasNext()) {
@@ -1383,6 +1382,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                             if (k.mDescription != null) {
                                 k.mDescription = k.mDescription.replaceAll("\\n", "<br/>");
                             }
+
                         }
 
                         if(option.equalsIgnoreCase("soilCapability")||option.equalsIgnoreCase("rainfall")||option.equalsIgnoreCase("landuse")) {
@@ -1698,14 +1698,14 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     private String parseRString(String mDescription) {
         String descriptionBuilder = "";
         String[] recommendations = mDescription.split(",");
-        Log.i("Description Before Parsing", mDescription + "");
+        Log.i("Description Parsing", mDescription + "");
         if (Integer.parseInt(recommendations[0]) == 3) {
             //pH too high
-            descriptionBuilder = descriptionBuilder + "Soil is too Acidic";
+            descriptionBuilder = descriptionBuilder + "Soil is too Alkaline";
 
         } else if (Integer.parseInt(recommendations[0]) == 1) {
             //pH too low
-            descriptionBuilder = descriptionBuilder + "Soil is too Alkaline";
+            descriptionBuilder = descriptionBuilder + "Soil is too Acidic";
         } else {
             //pH is optimum
             descriptionBuilder = descriptionBuilder + "Soil pH is Optimal";
@@ -1796,11 +1796,11 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
             } else if (actualph < lowph) {
                 recommendations[0] = 1;
                 //pH too low
-                descriptionBuilder = descriptionBuilder + "Soil is too Alkaline";
+                descriptionBuilder = descriptionBuilder + "Soil is too Acidic";
             } else {
                 recommendations[0] = 3;
                 //pH too high
-                descriptionBuilder = descriptionBuilder + "Soil is too Acidic";
+                descriptionBuilder = descriptionBuilder + "Soil is too Alkaline";
             }
             /*
             if (actualEC <= highEC) {
@@ -1845,7 +1845,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 k.mStyle="3";
                 k.mName = "Not Suitable";
             }
-            Log.i("Description Before Parsing", mDescription + "");
+            Log.i("Description Parsing", mDescription + "");
 
         } catch (Exception e) {
             descriptionBuilder = "No Data";
@@ -2164,12 +2164,12 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
 
                 if (recommendations[0] == 3) {
                     //pH too high
-                    addRow(recommendTable,"Soil pH","Soil is too Acidic. The actual pH is " + actualph +
-                            " while the recommended range is " + lowph + " - " + highph + ". To lower the pH of soil, apply elemental sulphur or ammonium sulphate fertilizers.");
+                    addRow(recommendTable,"Soil pH","Soil is too Alkaline. The actual pH is " + actualph +
+                            " while the recommended range is " + lowph + " - " + highph + ". Seek professional assistance on this issue.");
                 } else if (recommendations[0] == 1) {
                     //pH too low
-                    addRow(recommendTable,"Soil pH","Soil is too Alkaline. The actual pH is " + actualph +
-                            " while the recommended range is " + lowph + " - " + highph + ". To heighten the pH of soil, apply lime in either grounded or powdered form.");
+                    addRow(recommendTable,"Soil pH","Soil is too Acidic. The actual pH is " + actualph +
+                            " while the recommended range is " + lowph + " - " + highph + ". To raise the pH of soil, do a lime requirement test and apply lime.");
                 } else {
                     //pH is optimum
                 }
@@ -2177,28 +2177,28 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 if (recommendations[1] == 3) {
                     //soil too high
                     addRow(recommendTable,"Soil Composition","The Soil is made up of " + actualClay +
-                            "% Clay which is more than the recommended amount of " + highClay + "%. Install drainage channels to improve composition");
+                            "% Clay which is more than the recommended amount of " + highClay + "%. Install drainage channels to improve composition.");
 
                 } else if (recommendations[1] == 1) {
                     //soil too low
                     addRow(recommendTable,"Soil Composition","The Soil is made up of " + actualClay +
-                            "% Clay which is less than the recommended amount of " + lowClay + "% ,Irrigate soil to improve composition.");
+                            "% Clay which is less than the recommended amount of " + lowClay + "%. Irrigate soil to maintain adequate moisture.");
                 } else {
                     //soil is optimum
                 }
 
                 if (recommendations[2] == 3) {
-                    //soil too high
-                    addRow(recommendTable,"Rainfall","There is too much Annual Rainfall at this location, Expected Rainfall: " +
+                    //Rainfall too high
+                    addRow(recommendTable,"Rainfall","There is too much Annual Rainfall at this location. Expected Rainfall: " +
                             getRainfallAmt((int) gridcode) +
                             " vs Recommended Rainfall for this crop: " + lowRainfall + "-" + highRainfall + "mm. " +
-                            "Install drainage channels to improve water flow.");
+                            "Install appropriate drainage to improve water flow.");
                 } else if (recommendations[2] == 1) {
-                    //soil too low
-                    addRow(recommendTable,"Rainfall","There is too little Annual Rainfall at this location, Expected Rainfall: " +
+                    //Rainfall too low
+                    addRow(recommendTable,"Rainfall","There is too little Annual Rainfall at this location. Expected Rainfall: " +
                             getRainfallAmt((int) gridcode) +
                             " vs Recommended Rainfall for this crop: " + lowRainfall + "-" + highRainfall + "mm. " +
-                            "Add a water irrigation system.");
+                            "Install an irrigation system.");
                 } else {
                     //soil is optimum
                 }
@@ -2228,6 +2228,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         tableL.addView(tbrow);
     }
 
+    //Function to map raw rainfall ids to rainfall amounts
     private String getRainfallAmt(int i) {
         String amt = "";
         if (i == 1) {
