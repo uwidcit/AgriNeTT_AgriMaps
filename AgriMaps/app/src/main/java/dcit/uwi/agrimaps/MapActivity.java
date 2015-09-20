@@ -41,6 +41,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -185,6 +186,8 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     //JSON Object to hold the specifications for each of the downloaded crops to be used
     private JSONObject cropSpecifications;
 
+    private JSONObject todayWeather;
+
     // ArrayLists to input the overlays
     private ArrayList<OverlayItem> overlayItemArray;
     private ArrayList<FolderOverlay> viewOverlays;
@@ -307,7 +310,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         refreshButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(location!=null) {
+                if (location != null) {
                     previousLocation = location;
                 }
 
@@ -315,7 +318,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                     if (checkInternet() == true) {
                         showToast("Determining Current Location");
                         getLocation();
-                    }else{
+                    } else {
                         showToast("No Internet available to fetch data for new point.");
                     }
                 } else {// if no location services are available then alert user
@@ -673,6 +676,36 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                         });
                     }
                 });
+
+                Button weather = (Button) helpDialog.findViewById(R.id.button_weather);
+                weather.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+                        View layout = inflater.inflate(R.layout.weather_info, (ViewGroup) findViewById(R.id.weatherTabs));
+                        helpDialog.setContentView(layout);
+                        helpDialog.show();
+                        TabHost tabHost = (TabHost)layout.findViewById(R.id.weatherTabs);
+                        tabHost.setup();
+
+                        // create tab 1
+                        TabHost.TabSpec spec1 = tabHost.newTabSpec("tab1");
+                        spec1.setIndicator("Profile", context.getResources().getDrawable(R.drawable.ic_drawer));
+                        spec1.setContent(R.id.TextView01);
+                        tabHost.addTab(spec1);
+                        //create tab2
+                        TabHost.TabSpec spec2 = tabHost.newTabSpec("tab2");
+                        spec2.setIndicator("Profile", context.getResources().getDrawable(R.drawable.ic_drawer));
+                        spec2.setContent(R.id.TextView02);
+                        tabHost.addTab(spec2);
+                        //dismissButton = (Button) layout.findViewById(R.id.dismiss_button2);
+                        //dismissButton.setOnClickListener(new View.OnClickListener() {
+                        //    public void onClick(View v) {
+                                // Perform action on click
+                        //        helpDialog.dismiss();
+                        //    }
+                        //});
+                    }
+                });
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -963,9 +996,12 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 if(appMode==true) {
                     asyncKMZfetch KmzProcess = new asyncKMZfetch();
                     KmzProcess.execute(requestUrl, requestSize + "");
+
+                    asyncJSONWeather jsonProcess = new asyncJSONWeather();
+                    jsonProcess.execute(requestUrl.split("&")[0],requestUrl.split("&")[1]);
                 }else{
-                    asyncJSONCropfetch jsonprocess = new asyncJSONCropfetch();
-                    jsonprocess.execute();
+                    asyncJSONCropfetch jsonProcess = new asyncJSONCropfetch();
+                    jsonProcess.execute();
                     //selectItem(currPos);
                 }
             }
@@ -1559,6 +1595,78 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         }
     }
 
+    private class asyncJSONWeather extends AsyncTask<String, Void, String> {
+
+        protected void onPreExecute() {
+            try {
+                if (!splashScreen.isShowing()) {
+                    progressDialog = ProgressDialog.show(context, "", "Loading Data", true);
+                    progressDialog.setCancelable(false);
+                    progressDialog.setCanceledOnTouchOutside(false);
+                }
+            } catch (final Throwable th) {
+                //TODO
+            }
+        }
+
+        protected String doInBackground(String... params) {
+            try {
+                StringBuilder builder = new StringBuilder();
+                HttpClient client = new DefaultHttpClient();
+                HttpGet httpGet = new HttpGet("http://api.openweathermap.org/data/2.5/weather?lat="+params[1]+"&lon="+params[0]+"&APPID=af95c7559192e07c0f3453092fd5990b");
+                try {
+                    HttpResponse response = client.execute(httpGet);
+                    StatusLine statusLine = response.getStatusLine();
+                    int statusCode = statusLine.getStatusCode();
+                    if (statusCode == 200) {
+                        HttpEntity entity = response.getEntity();
+                        InputStream content = entity.getContent();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            builder.append(line);
+                        }
+                        return builder.toString();
+                    } else {
+                        Log.e("Async Error", "Failed to download JSON object");
+                        return "false";
+                    }
+                } catch (Exception e) {
+                    Log.e("Async Error", "The error is " + e);
+                }
+
+            } catch (Exception e) {
+                Log.e("Async Error", "The request was" + url + "/" + option + "/" + params[0]);
+                Log.e("Async Error", "The error is " + e);
+            }
+            return "false";
+        }
+
+        protected void onPostExecute(String result) {
+            if (result.equalsIgnoreCase("false")) {
+                if (splashScreen.isShowing()) {
+                    splashScreen.dismiss();
+                } else if (progressDialog!=null&&progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+                showToast("No Internet available to fetch data for new point");
+                setCentreMarker();
+            } else {
+                try {
+                    todayWeather = new JSONObject(result);
+                    JSONObject weather = todayWeather.getJSONArray("weather").getJSONObject(0);
+                    Log.i("Weather", weather.getString("main")+" "+weather.getString("description"));
+
+                    JSONObject mainWeather = todayWeather.getJSONObject("main");
+                    Log.i("Weather", mainWeather.toString());
+
+                } catch (Exception e) {
+                    Log.e("Crop Specifications", "Error is: " + e);
+                }
+
+            }
+        }
+    }
     //Function which pulls all the rainfall+soil series polygons from the server and users the
     //Crop specifications to display recommendations to the user
     private class asyncRecommendAll extends AsyncTask<String, Void, String> {
