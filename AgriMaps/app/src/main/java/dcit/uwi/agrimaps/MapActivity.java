@@ -864,8 +864,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                     AlertDialog wrongLocation = new AlertDialog.Builder(this).create();
                     wrongLocation.setTitle("Location");
                     wrongLocation.setCancelable(false);
-                    wrongLocation.setMessage("Please note that the application only shows data for Trinidad and Tobago and " +
-                            " your location is detected to be outside this service area.");
+                    wrongLocation.setMessage("Please note that the application only currently shows data for Trinidad and Tobago.");
                     wrongLocation.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             if(splashScreen.isShowing()){
