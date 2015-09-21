@@ -316,15 +316,15 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                         showToast("Determining Current Location");
                         getLocation();
                     }else{
-                        showToast("No Internet available to fetch data for new point.");
+                        showToast("No Internet available to fetch data for new point");
                     }
                 } else {// if no location services are available then alert user
                     Log.e("Location", "Check GPS failed");
                     AlertDialog noLocation = new AlertDialog.Builder(context).create();
                     noLocation.setTitle("Location");
                     noLocation.setCancelable(false);
-                    noLocation.setMessage("Location settings are disabled, please enable location finding setting for full usage of application. For fast location" +
-                            "  finding, enable location finding using Wifi or the Network Provider.");
+                    noLocation.setMessage("Location settings are disabled, please enable location finding setting for full usage of the application. For fast location" +
+                            "  finding, enable location finding using Wi-Fi or the Network Provider.");
                     noLocation.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // android.os.Process.killProcess(android.os.Process.myPid());
@@ -361,7 +361,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
             noLocation.setCancelable(false);
             noLocation.setMessage("Location settings are disabled, you can still load data " +
                     "for points of interest on the map. Please enable location settings for full usage of application. For fast location" +
-                    " finding, enable location finding using Wifi or the Network Provider.");
+                    " finding, enable location finding using Wi-Fi or the Network Provider.");
             noLocation.setButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // android.os.Process.killProcess(android.os.Process.myPid());
@@ -384,7 +384,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         }else if(!checkInternet()){
             AlertDialog noInternet = new AlertDialog.Builder(context).create();
             noInternet.setTitle("Connection Error");
-            noInternet.setMessage("There is no internet available to use application. Please enable wifi or Mobile Data to use application.");
+            noInternet.setMessage("There is no internet available to use the application. Please enable Wi-Fi or Mobile Data and restart the application.");
             noInternet.setButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     //Undefined for now
@@ -769,7 +769,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Location");
                 builder.setMessage("Location finding is set to GPS only which takes 5-10 minutes to locate user. For fast location" +
-                        " finding, use Wifi or the Network Provider in Location Settings of device. Press yes to" +
+                        " finding, use Wi-Fi or the Network Provider in Location Settings of device. Press yes to" +
                         " be forwarded to Location Setting Screen otherwise press No to continue using GPS.")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -864,7 +864,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 }else {
                     SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
                     Boolean firstRun = sharedPrefs.getBoolean("firstRun", false);
-                    if (firstRun) {
+                    if (!firstRun) {
                         SharedPreferences.Editor editor = sharedPrefs.edit();
                         editor.putBoolean("firstRun", true);
                         editor.commit();
@@ -887,6 +887,9 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
 
                         wrongLocation.show();
                     }else{
+                        if (splashScreen.isShowing()) {
+                            splashScreen.dismiss();
+                        }
                         showToast("No Data can be shown for this location.");
                         setCentreMarker();
                         mapController.setCenter(centre);
