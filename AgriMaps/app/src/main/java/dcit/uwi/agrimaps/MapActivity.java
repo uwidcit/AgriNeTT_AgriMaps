@@ -148,12 +148,21 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
+            if (progressDialog!=null&&progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
         }
 
         public void onProviderEnabled(String provider) {
+            if (progressDialog!=null&&progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
         }
 
         public void onProviderDisabled(String provider) {
+            if (progressDialog!=null&&progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
         }
     };
     private ProgressDialog progressDialog;
@@ -313,10 +322,12 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
 
                 if (checkLocation() == true) {
                     if (checkInternet() == true) {
-                        showToast("Determining Current Location");
+                        progressDialog = ProgressDialog.show(context, "", "Determining Current Location", true);
+                        progressDialog.setCancelable(false);
+                        progressDialog.setCanceledOnTouchOutside(false);
                         getLocation();
                     }else{
-                        showToast("No Internet available to fetch data for new point");
+                        showToast("No Internet available to fetch data");
                     }
                 } else {// if no location services are available then alert user
                     Log.e("Location", "Check GPS failed");
@@ -802,7 +813,9 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     //Function to initialize the location variables which are being used in the application.
     //This function is called when the location of the user changes/ is initialized
     private void useLocation() {
-
+        if (progressDialog!=null&&progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
         lm.removeUpdates(locationListener);
         //Check if map was already loaded
         //Once user's location is retrieved then set the current focus of the map to the user
