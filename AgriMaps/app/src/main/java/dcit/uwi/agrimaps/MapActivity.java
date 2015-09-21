@@ -841,7 +841,9 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 //option = internalViewOptions[1];
                 //asyncKMZfetch KmzProcess = new asyncKMZfetch();
                 //KmzProcess.execute(requestUrl);
-                if (getUserCountry(location.getLatitude(), location.getLongitude()).equalsIgnoreCase("tt")) {
+
+                String myLocation = getUserCountry(location.getLatitude(), location.getLongitude());
+                if (myLocation.equalsIgnoreCase("tt")||myLocation.equalsIgnoreCase("error")) {
                     if (checkInternet() && (currPos != 0 && currPos != -1)) {
                         selectItem(currPos);
                         asyncJSONfetch js = new asyncJSONfetch();
@@ -860,23 +862,36 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                         showToast("No Internet available to fetch data");
                     }
                 }else {
-                    Log.i("Foreign","Location of foreigner is: "+location);
-                    AlertDialog wrongLocation = new AlertDialog.Builder(this).create();
-                    wrongLocation.setTitle("Location");
-                    wrongLocation.setCancelable(false);
-                    wrongLocation.setMessage("Please note that the application only currently shows data for Trinidad and Tobago.");
-                    wrongLocation.setButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            if(splashScreen.isShowing()){
-                                splashScreen.dismiss();
-                            }
-                            setCentreMarker();
-                            mapController.setCenter(centre);
-                            mapController.setZoom(10);
-                        }
-                    });
+                    SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+                    Boolean firstRun = sharedPrefs.getBoolean("firstRun", false);
+                    if (firstRun) {
+                        SharedPreferences.Editor editor = sharedPrefs.edit();
+                        editor.putBoolean("firstRun", true);
+                        editor.commit();
 
-                    wrongLocation.show();
+                        Log.i("Foreign", "Location of foreigner is: " + location);
+                        AlertDialog wrongLocation = new AlertDialog.Builder(this).create();
+                        wrongLocation.setTitle("Location");
+                        wrongLocation.setCancelable(false);
+                        wrongLocation.setMessage("Please note that this application currently only shows data for Trinidad and Tobago.");
+                        wrongLocation.setButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (splashScreen.isShowing()) {
+                                    splashScreen.dismiss();
+                                }
+                                setCentreMarker();
+                                mapController.setCenter(centre);
+                                mapController.setZoom(10);
+                            }
+                        });
+
+                        wrongLocation.show();
+                    }else{
+                        showToast("No Data can be shown for this location.");
+                        setCentreMarker();
+                        mapController.setCenter(centre);
+                        mapController.setZoom(10);
+                }
                 }
 
                 } else if (distPrev < 100) {
