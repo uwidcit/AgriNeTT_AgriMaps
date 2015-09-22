@@ -316,7 +316,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         refreshButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(location!=null) {
+                if (location != null) {
                     previousLocation = location;
                 }
 
@@ -326,7 +326,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                         progressDialog.setCancelable(false);
                         progressDialog.setCanceledOnTouchOutside(false);
                         getLocation();
-                    }else{
+                    } else {
                         showToast("No Internet available to fetch data");
                     }
                 } else {// if no location services are available then alert user
@@ -776,7 +776,9 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 // no network provider is enabled a notice will be delivered to the user
                 return false;
             } else if (isGPSEnabled && !isNetworkEnabled) {
-                currentToast.cancel();
+                if(currentToast!=null) {
+                    currentToast.cancel();
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Location");
                 builder.setMessage("Location finding is set to GPS only which takes 5-10 minutes to locate user. For fast location" +
