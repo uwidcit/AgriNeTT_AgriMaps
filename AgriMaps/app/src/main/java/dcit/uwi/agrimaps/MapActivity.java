@@ -684,6 +684,23 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                         });
                     }
                 });
+                Button aboutAgri = (Button) helpDialog.findViewById(R.id.button_About);
+                aboutAgri.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+                        View layout = inflater.inflate(R.layout.about_layout, (ViewGroup) findViewById(R.id.about_layout));
+                        helpDialog.setContentView(layout);
+                        helpDialog.setTitle("About");
+                        helpDialog.show();
+                        dismissButton = (Button) layout.findViewById(R.id.dismiss_button2);
+                        dismissButton.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                // Perform action on click
+                                helpDialog.dismiss();
+                            }
+                        });
+                    }
+                });
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

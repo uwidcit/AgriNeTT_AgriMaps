@@ -38,11 +38,24 @@
             android:id="@+id/button_cropFamilies"
             android:background="#ffffffff"
             android:layout_below="@+id/sep2" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/material_deep_teal_500"
+        android:id="@+id/sep4"
+        android:layout_below="@+id/button_cropFamilies" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="About"
+        android:id="@+id/button_About"
+        android:background="#ffffffff"
+        android:layout_below="@+id/sep4" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/material_deep_teal_500"
-        android:id="@+id/sep3"
-        android:layout_below="@+id/button_cropFamilies" />
+        android:id="@+id/sep5"
+        android:layout_below="@+id/button_About" />
 </RelativeLayout>
