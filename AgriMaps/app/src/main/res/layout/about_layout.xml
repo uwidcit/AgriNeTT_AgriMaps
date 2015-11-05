@@ -43,12 +43,13 @@
                 android:layout_marginRight="2dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_column="0"
-                android:text="AgriMaps is an application developed as part of an Agriculture ICT project called AgriNeTT. AgriNeTT is a project of the St. Augustine campus of The University of the West Indies and is funded under the UWI-Trinidad and Tobago Research and Development Impact (RDI) Fund."
+                android:text="AgriMaps is developed as part of an Agriculture ICT project called AgriNeTT."
                 android:autoText="false"
                 android:layout_gravity="top|center"
                 android:textSize="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:id="@+id/about_text" />
-
         </TableRow>
             <TableRow
                 android:layout_width="wrap_content"
@@ -62,10 +63,33 @@
                     android:layout_marginRight="2dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_column="0"
-                    android:text="For more information visit the AgriNeTT Website: sta.uwi.edu/agrinett"
+                    android:text="AgriNeTT is a project of the St.Augustine campus of The University of the West Indies and is funded by the UWI-Trinidad and Tobago Research and Development Impact(RDI) Fund."
                     android:autoText="false"
                     android:layout_gravity="top|center"
                     android:textSize="20dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:id="@+id/about_text2" />
+
+            </TableRow>
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_column="0"
+                    android:text="For further information, visit the AgriNeTT Website at sta.uwi.edu/agrinett"
+                    android:autoText="false"
+                    android:layout_gravity="top|center"
+                    android:textSize="20dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:linksClickable="true"
                     android:autoLink="web" />
 
