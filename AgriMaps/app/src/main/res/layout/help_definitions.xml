@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="The application at default fetches all data in a range of 1000 meteres from location. To change this please tap settings button in bar and set the radius fetch to desired number."
+            android:text="The application at default fetches all data in a range of 1000 meteres from location. To change this please tap the settings button in bar and set the radius fetch to desired number."
             android:layout_column="1"
             android:textSize="16dp"
             android:id="@+id/help_col4"

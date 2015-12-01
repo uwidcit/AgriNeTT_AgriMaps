@@ -148,12 +148,21 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
+            if (progressDialog!=null&&progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
         }
 
         public void onProviderEnabled(String provider) {
+            if (progressDialog!=null&&progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
         }
 
         public void onProviderDisabled(String provider) {
+            if (progressDialog!=null&&progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
         }
     };
     private ProgressDialog progressDialog;
@@ -307,24 +316,26 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         refreshButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(location!=null) {
+                if (location != null) {
                     previousLocation = location;
                 }
 
                 if (checkLocation() == true) {
                     if (checkInternet() == true) {
-                        showToast("Determining Current Location");
+                        progressDialog = ProgressDialog.show(context, "", "Determining Current Location", true);
+                        progressDialog.setCancelable(false);
+                        progressDialog.setCanceledOnTouchOutside(false);
                         getLocation();
-                    }else{
-                        showToast("No Internet available to fetch data for new point.");
+                    } else {
+                        showToast("No Internet available to fetch data");
                     }
                 } else {// if no location services are available then alert user
                     Log.e("Location", "Check GPS failed");
                     AlertDialog noLocation = new AlertDialog.Builder(context).create();
                     noLocation.setTitle("Location");
                     noLocation.setCancelable(false);
-                    noLocation.setMessage("Location settings are disabled, please enable location finding setting for full usage of application. For fast location" +
-                            "  finding, enable location finding using Wifi or the Network Provider.");
+                    noLocation.setMessage("Location settings are disabled, please enable location finding setting for full usage of the application. For fast location" +
+                            "  finding, enable location finding using Wi-Fi or the Network Provider.");
                     noLocation.setButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // android.os.Process.killProcess(android.os.Process.myPid());
@@ -361,7 +372,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
             noLocation.setCancelable(false);
             noLocation.setMessage("Location settings are disabled, you can still load data " +
                     "for points of interest on the map. Please enable location settings for full usage of application. For fast location" +
-                    " finding, enable location finding using Wifi or the Network Provider.");
+                    " finding, enable location finding using Wi-Fi or the Network Provider.");
             noLocation.setButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // android.os.Process.killProcess(android.os.Process.myPid());
@@ -384,7 +395,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         }else if(!checkInternet()){
             AlertDialog noInternet = new AlertDialog.Builder(context).create();
             noInternet.setTitle("Connection Error");
-            noInternet.setMessage("There is no internet available to use application. Please enable wifi or Mobile Data to use application.");
+            noInternet.setMessage("There is no internet available to use the application. Please enable Wi-Fi or Mobile Data and restart the application.");
             noInternet.setButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     //Undefined for now
@@ -782,11 +793,13 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 // no network provider is enabled a notice will be delivered to the user
                 return false;
             } else if (isGPSEnabled && !isNetworkEnabled) {
-                currentToast.cancel();
+                if(currentToast!=null) {
+                    currentToast.cancel();
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Location");
                 builder.setMessage("Location finding is set to GPS only which takes 5-10 minutes to locate user. For fast location" +
-                        " finding, use Wifi or the Network Provider in Location Settings of device. Press yes to" +
+                        " finding, use Wi-Fi or the Network Provider in Location Settings of device. Press yes to" +
                         " be forwarded to Location Setting Screen otherwise press No to continue using GPS.")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -819,7 +832,9 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     //Function to initialize the location variables which are being used in the application.
     //This function is called when the location of the user changes/ is initialized
     private void useLocation() {
-
+        if (progressDialog!=null&&progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
         lm.removeUpdates(locationListener);
         //Check if map was already loaded
         //Once user's location is retrieved then set the current focus of the map to the user
@@ -858,7 +873,9 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 //option = internalViewOptions[1];
                 //asyncKMZfetch KmzProcess = new asyncKMZfetch();
                 //KmzProcess.execute(requestUrl);
-                if (getUserCountry(location.getLatitude(), location.getLongitude()).equalsIgnoreCase("tt")) {
+
+                String myLocation = getUserCountry(location.getLatitude(), location.getLongitude());
+                if (myLocation.equalsIgnoreCase("tt")||myLocation.equalsIgnoreCase("error")) {
                     if (checkInternet() && (currPos != 0 && currPos != -1)) {
                         selectItem(currPos);
                         asyncJSONfetch js = new asyncJSONfetch();
@@ -877,24 +894,39 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                         showToast("No Internet available to fetch data");
                     }
                 }else {
-                    Log.i("Foreign","Location of foreigner is: "+location);
-                    AlertDialog wrongLocation = new AlertDialog.Builder(this).create();
-                    wrongLocation.setTitle("Location");
-                    wrongLocation.setCancelable(false);
-                    wrongLocation.setMessage("Please note that the application only shows data for Trinidad and Tobago and " +
-                            " your location is detected to be outside this service area.");
-                    wrongLocation.setButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            if(splashScreen.isShowing()){
-                                splashScreen.dismiss();
-                            }
-                            setCentreMarker();
-                            mapController.setCenter(centre);
-                            mapController.setZoom(10);
-                        }
-                    });
+                    SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+                    Boolean firstRun = sharedPrefs.getBoolean("firstRun", false);
+                    if (!firstRun) {
+                        SharedPreferences.Editor editor = sharedPrefs.edit();
+                        editor.putBoolean("firstRun", true);
+                        editor.commit();
 
-                    wrongLocation.show();
+                        Log.i("Foreign", "Location of foreigner is: " + location);
+                        AlertDialog wrongLocation = new AlertDialog.Builder(this).create();
+                        wrongLocation.setTitle("Location");
+                        wrongLocation.setCancelable(false);
+                        wrongLocation.setMessage("Please note that this application currently only shows data for Trinidad and Tobago.");
+                        wrongLocation.setButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (splashScreen.isShowing()) {
+                                    splashScreen.dismiss();
+                                }
+                                setCentreMarker();
+                                mapController.setCenter(centre);
+                                mapController.setZoom(10);
+                            }
+                        });
+
+                        wrongLocation.show();
+                    }else{
+                        if (splashScreen.isShowing()) {
+                            splashScreen.dismiss();
+                        }
+                        showToast("No Data can be shown for this location.");
+                        setCentreMarker();
+                        mapController.setCenter(centre);
+                        mapController.setZoom(10);
+                }
                 }
 
                 } else if (distPrev < 100) {

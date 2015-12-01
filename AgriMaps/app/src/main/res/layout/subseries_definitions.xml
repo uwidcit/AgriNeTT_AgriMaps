@@ -156,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="P (Phosphorous) is an primary plant nutrient required for photosynthesis, root formation and growth."
+                android:text="P (Phosphorous) is a primary plant nutrient required for photosynthesis, root formation and growth."
                 android:layout_column="1"
                 android:textSize="16dp"
                 android:id="@+id/p_col2" />
@@ -186,7 +186,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="K (Potassium) is an primary plant nutrient needed for photosynthesis and protein formation."
+                android:text="K (Potassium) is a primary plant nutrient needed for photosynthesis and protein formation."
                 android:layout_column="1"
                 android:textSize="16dp"
                 android:id="@+id/k_col2" />
@@ -216,7 +216,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="EC (Electrical Conductivity) gives and indication of the amount of soluble salts present in a soil. "
+                android:text="EC (Electrical Conductivity) gives an indication of the amount of soluble salts present in a soil. "
                 android:layout_column="1"
                 android:textSize="16dp"
                 android:id="@+id/ec_col2" />
