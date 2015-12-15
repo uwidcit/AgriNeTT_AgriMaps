@@ -28,6 +28,10 @@
             android:name=".userPreferences"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="AgriMaps" />
+        <activity
+            android:name=".WelcomeScreen"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:label="AgriMaps" />
     </application>
 
 </manifest>

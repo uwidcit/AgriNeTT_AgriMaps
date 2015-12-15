@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <EditTextPreference android:title="Username"
-        android:key="username"
-        android:summary="Please provide your username"></EditTextPreference>
     <EditTextPreference android:title="Radius"
         android:key="radius"
         android:defaultValue="1000"
         android:maxLength="5"
         android:inputType="number"
         android:summary="Please enter a radius request size in Meters."></EditTextPreference>
+    <Preference
+        android:title="View Welcome Screen"
+        android:summary="Displays the initial Welcome Screen"
+        android:key="welcomeScreen"/>
 </PreferenceScreen>
