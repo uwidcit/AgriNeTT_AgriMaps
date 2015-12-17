@@ -17,8 +17,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.nineoldandroids.view.ViewHelper;
-
 public class WelcomeScreen extends AppCompatActivity {
 
     private final String TAG_NAME = "WelcomeScreen";
@@ -48,7 +46,7 @@ public class WelcomeScreen extends AppCompatActivity {
         pager = (ViewPager) findViewById(R.id.pager);
         pagerAdapter = new ScreenSlideAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
-        pager.setPageTransformer(true, new CrossfadePageTransformer());
+        pager.setPageTransformer(true, new DepthPageTransformer());
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -169,19 +167,19 @@ public class WelcomeScreen extends AppCompatActivity {
             WelcomeScreenFragment welcomeScreenFragment = null;
             switch (position) {
                 case 0:
-                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen1);
+                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen1,R.mipmap.ic_launcher);
                     break;
                 case 1:
-                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen2);
+                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen2,R.drawable.screen2);
                     break;
                 case 2:
-                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen3);
+                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen3,R.drawable.screen3);
                     break;
                 case 3:
-                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen4);
+                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen4,R.drawable.screen4);
                     break;
                 case 4:
-                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen4);
+                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen4,-1);
                     break;
             }
 
@@ -194,41 +192,39 @@ public class WelcomeScreen extends AppCompatActivity {
         }
     }
 
-    public class CrossfadePageTransformer implements ViewPager.PageTransformer {
+    public class DepthPageTransformer implements ViewPager.PageTransformer {
+        private static final float MIN_SCALE = 0.75f;
 
-        @Override
-        public void transformPage(View page, float position) {
-            int pageWidth = page.getWidth();
+        public void transformPage(View view, float position) {
+            int pageWidth = view.getWidth();
 
-            View backgroundView = page.findViewById(R.id.welcome_fragment);
-            View text_head = page.findViewById(R.id.screen_heading);
-            View text_content = page.findViewById(R.id.screen_desc);
+            if (position < -1) { // [-Infinity,-1)
+                // This page is way off-screen to the left.
+                view.setAlpha(0);
 
-            if (0 <= position && position < 1) {
-                ViewHelper.setTranslationX(page, pageWidth * -position);
-            }
-            if (-1 < position && position < 0) {
-                ViewHelper.setTranslationX(page, pageWidth * -position);
-            }
+            } else if (position <= 0) { // [-1,0]
+                // Use the default slide transition when moving to the left page
+                view.setAlpha(1);
+                view.setTranslationX(0);
+                view.setScaleX(1);
+                view.setScaleY(1);
 
-            if (position <= -1.0f || position >= 1.0f) {
+            } else if (position <= 1) { // (0,1]
+                // Fade the page out.
+                view.setAlpha(1 - position);
 
-            } else if (position == 0.0f) {
-            } else {
-                if (backgroundView != null) {
-                    ViewHelper.setAlpha(backgroundView, 1.0f - Math.abs(position));
+                // Counteract the default slide transition
+                view.setTranslationX(pageWidth * -position);
 
-                }
+                // Scale the page down (between MIN_SCALE and 1)
+                float scaleFactor = MIN_SCALE
+                        + (1 - MIN_SCALE) * (1 - Math.abs(position));
+                view.setScaleX(scaleFactor);
+                view.setScaleY(scaleFactor);
 
-                if (text_head != null) {
-                    ViewHelper.setTranslationX(text_head, pageWidth * position);
-                    ViewHelper.setAlpha(text_head, 1.0f - Math.abs(position));
-                }
-
-                if (text_content != null) {
-                    ViewHelper.setTranslationX(text_content, pageWidth * position);
-                    ViewHelper.setAlpha(text_content, 1.0f - Math.abs(position));
-                }
+            } else { // (1,+Infinity]
+                // This page is way off-screen to the right.
+                view.setAlpha(0);
             }
         }
     }

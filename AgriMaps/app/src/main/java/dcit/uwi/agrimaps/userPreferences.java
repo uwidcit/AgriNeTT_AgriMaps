@@ -38,7 +38,7 @@ public class userPreferences extends PreferenceActivity implements SharedPrefere
             }
         });
 
-        Preference button = (Preference)findPreference("welcomeScreen");
+        Preference button = findPreference("welcomeScreen");
         button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {

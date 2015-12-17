@@ -25,7 +25,6 @@
             android:paddingLeft="18dp"
             android:paddingRight="18dp"
             android:layout_gravity="center"/>
-
     </FrameLayout>
 
     <TextView

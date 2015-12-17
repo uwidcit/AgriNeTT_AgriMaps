@@ -56,10 +56,10 @@
     <string name="welcome_screen_1_title">Welcome</string>
     <string name="welcome_screen_1_desc">AgriMaps is a mobile application which displays land and soil information on a map interface.</string>
     <string name="welcome_screen_2_title">Land Profile Mode</string>
-    <string name="welcome_screen_2_desc">The AgriMaps Land Profile mode displays information such as soil properties and annual rainfall. Such options can be selected and viewed by pressing the highlighted button above.</string>
+    <string name="welcome_screen_2_desc">The AgriMaps Land Profile Mode displays information such as soil properties, annual rainfall and contour information.</string>
     <string name="welcome_screen_3_title">Recommender Mode</string>
-    <string name="welcome_screen_3_desc">The Recommender Mode provides information regarding the suitabilty of the soil for the planting of specific crops. This mode can be switched to using the highlighted button above.</string>
+    <string name="welcome_screen_3_desc">The AgriMaps Recommender Mode provides information regarding the suitability of the soil for the planting of specific crops.</string>
     <string name="welcome_screen_4_title">Help</string>
-    <string name="welcome_screen_4_desc">The Help Button highlighted above can be selected to display further information regarding the application including instructions.</string>
+    <string name="welcome_screen_4_desc">The Help Button, highlighted above, can be pressed to display information about the application as well as instructions for application usage.</string>
 
 </resources>

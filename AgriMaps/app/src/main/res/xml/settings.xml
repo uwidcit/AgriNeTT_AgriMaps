@@ -5,9 +5,9 @@
         android:defaultValue="1000"
         android:maxLength="5"
         android:inputType="number"
-        android:summary="Please enter a radius request size in Meters."></EditTextPreference>
+        android:summary="Please enter a radius request size in Meters"></EditTextPreference>
     <Preference
         android:title="View Welcome Screen"
-        android:summary="Displays the initial Welcome Screen"
+        android:summary="Display the initial Welcome Screen"
         android:key="welcomeScreen"/>
 </PreferenceScreen>

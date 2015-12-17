@@ -30,6 +30,7 @@
             android:label="AgriMaps" />
         <activity
             android:name=".WelcomeScreen"
+            android:screenOrientation="portrait"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="AgriMaps" />
     </application>
