@@ -8,6 +8,6 @@
         android:summary="Please enter a radius request size in Meters"></EditTextPreference>
     <Preference
         android:title="View Welcome Screen"
-        android:summary="Display the initial Welcome Screen"
+        android:summary="This button wil display the initial Welcome Screen"
         android:key="welcomeScreen"/>
 </PreferenceScreen>

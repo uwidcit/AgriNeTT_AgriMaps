@@ -167,7 +167,7 @@ public class WelcomeScreen extends AppCompatActivity {
             WelcomeScreenFragment welcomeScreenFragment = null;
             switch (position) {
                 case 0:
-                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen1,R.mipmap.ic_launcher);
+                    welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen1,R.drawable.agrimapsicon);
                     break;
                 case 1:
                     welcomeScreenFragment = WelcomeScreenFragment.newInstance(R.layout.fragment_welcome_screen2,R.drawable.screen2);

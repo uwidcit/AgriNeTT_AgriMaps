@@ -54,7 +54,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="welcome_screen_1_title">Welcome</string>
-    <string name="welcome_screen_1_desc">AgriMaps is a mobile application which displays land and soil information on a map interface.</string>
+    <string name="welcome_screen_1_desc">AgriMaps is a mobile application which displays land and soil information using a map interface.</string>
     <string name="welcome_screen_2_title">Land Profile Mode</string>
     <string name="welcome_screen_2_desc">The AgriMaps Land Profile Mode displays information such as soil properties, annual rainfall and contour information.</string>
     <string name="welcome_screen_3_title">Recommender Mode</string>
