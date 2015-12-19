@@ -216,6 +216,8 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     //recommender mode
     private boolean appMode = true;
 
+    //Flag if application is passed initial loading stage
+    private boolean appStart = false;
     //This hashmap is used to store descriptions which are being parsed for the recommender
     private HashMap<String, String> hash = new HashMap<>();
 
@@ -244,6 +246,8 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
 
         //Start the tutorial while loading is taking place, tutorial only occurs if the user is launching the application for first time
         firstStartup();
+
+        appStart = true;
     }
 
     @Override
@@ -747,7 +751,11 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
+        try {
+            getSupportActionBar().setTitle(mTitle);
+        }catch(Exception e){
+            Log.e("Set Title","Exception: "+e);
+        }
     }
 
     @Override
@@ -805,30 +813,33 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 if (currentToast != null) {
                     currentToast.cancel();
                 }
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Location");
-                builder.setMessage("Location finding is set to GPS only which takes 5-10 minutes to locate user. For fast location" +
-                        " finding, use Wi-Fi or the Network Provider in Location Settings of device. Press yes to" +
-                        " be forwarded to Location Setting Screen otherwise press No to continue using GPS.")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                try {
-                                    lm.removeUpdates(locationListener);
-                                }catch(SecurityException e){
 
+                if(appStart == false) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Location");
+                    builder.setMessage("Location finding is set to GPS only which takes 5-10 minutes to locate user. For fast location" +
+                            " finding, use Wi-Fi or the Network Provider in Location Settings of device. Press yes to" +
+                            " be forwarded to Location Setting Screen otherwise press No to continue using GPS.")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    try {
+                                        lm.removeUpdates(locationListener);
+                                    } catch (SecurityException e) {
+
+                                    }
+                                    MapActivity.this.finish();
+                                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                 }
-                                MapActivity.this.finish();
-                                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
                 return true;
             } else {
                 // location manager will be able to return a location
