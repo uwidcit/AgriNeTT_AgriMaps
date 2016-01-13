@@ -981,11 +981,10 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     //the option selected by the user to fetch the necessary information from the cache or from the
     //server.
     private void selectItem(int position) {
-        int savedPos = position;
         try {
             if (appMode == false) {
                 if (currPos == -1) {
-                    currPos = 8;
+                    currPos = countProfileOptions+1;
                 }
                 if (position == 1)
                     position = currPos;
