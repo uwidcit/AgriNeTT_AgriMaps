@@ -53,5 +53,13 @@
     <string name="title_activity_oko">oko</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="welcome_screen_1_title">Welcome</string>
+    <string name="welcome_screen_1_desc">AgriMaps is a mobile application which displays land and soil information using a map interface.</string>
+    <string name="welcome_screen_2_title">Land Profile Mode</string>
+    <string name="welcome_screen_2_desc">The AgriMaps Land Profile Mode displays information such as annual rainfall, land use and soil properties.</string>
+    <string name="welcome_screen_3_title">Recommender Mode</string>
+    <string name="welcome_screen_3_desc">The AgriMaps Recommender Mode displays information regarding the suitability of soil for the planting of specific crops.</string>
+    <string name="welcome_screen_4_title">Help</string>
+    <string name="welcome_screen_4_desc">The Help Button, highlighted above, can be pressed to display information about the application and instructions for its usage.</string>
 
 </resources>

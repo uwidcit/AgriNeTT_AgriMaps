@@ -1,8 +1,10 @@
 package dcit.uwi.agrimaps;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +37,16 @@ public class userPreferences extends PreferenceActivity implements SharedPrefere
                 finish();
             }
         });
+
+        Preference button = findPreference("welcomeScreen");
+        button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent p = new Intent(getBaseContext(), WelcomeScreen.class);
+                startActivity(p);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -56,10 +68,6 @@ public class userPreferences extends PreferenceActivity implements SharedPrefere
                 Toast t = Toast.makeText(this, "Radius set to " + value + " meters", Toast.LENGTH_SHORT);
                 t.show();
             }
-        } else if ("username".equals((key))) {
-            String valueString = sharedPreferences.getString(key, "");
-            Toast t = Toast.makeText(this, "Username set to " + valueString, Toast.LENGTH_SHORT);
-            t.show();
         }
     }
 }

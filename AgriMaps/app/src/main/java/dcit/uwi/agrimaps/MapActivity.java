@@ -46,13 +46,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osmdroid.bonuspack.kml.KmlDocument;
@@ -80,9 +73,9 @@ import org.osmdroid.views.overlay.OverlayItem;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -148,19 +141,19 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
-            if (progressDialog!=null&&progressDialog.isShowing()) {
+            if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
         }
 
         public void onProviderEnabled(String provider) {
-            if (progressDialog!=null&&progressDialog.isShowing()) {
+            if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
         }
 
         public void onProviderDisabled(String provider) {
-            if (progressDialog!=null&&progressDialog.isShowing()) {
+            if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
         }
@@ -181,7 +174,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     //Internal view options, upon interaction with the user this array is used to change the overlay of the map by sending
     //a request to the host server for data
     private String[] internalViewOptions = {"rivers", "soilCapability", "roads", "contours", "rainfall",
-            "landUse", "parcels","recommendCassava","recommendOnion","recommendCocoa",
+            "landUse", "parcels", "recommendCassava", "recommendOnion", "recommendCocoa",
             "recommendLettuce", "recommendTomato", "recommendBreadfruit", "recommendPapaya", "recommendCucumber",
             "recommendPigeonPea", "recommendCorn", "recommendSweetPepper", "recommendPineapple", "recommendCitrus", "recommendSweetPotato",
             "recommendAll"};
@@ -223,6 +216,8 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     //recommender mode
     private boolean appMode = true;
 
+    //Flag if application is passed initial loading stage
+    private boolean appStart = false;
     //This hashmap is used to store descriptions which are being parsed for the recommender
     private HashMap<String, String> hash = new HashMap<>();
 
@@ -248,6 +243,11 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
 
         //Initialize Drawer set
         drawerInit(savedInstanceState);
+
+        //Start the tutorial while loading is taking place, tutorial only occurs if the user is launching the application for first time
+        firstStartup();
+
+        appStart = true;
     }
 
     @Override
@@ -278,6 +278,19 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     public void onDestroy() {
         super.onDestroy();
         Log.v("state", "- ON DESTROY -");
+    }
+
+    //Function to run welcome screen on first start up of application
+    public void firstStartup(){
+        SharedPreferences sharedPreferencesFirstRun = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean set = sharedPreferencesFirstRun.getBoolean("FirstRun", false);
+        if(!set){
+            Intent p = new Intent(this, WelcomeScreen.class);
+            startActivity(p);
+            SharedPreferences.Editor editor = sharedPreferencesFirstRun.edit();
+            editor.putBoolean("FirstRun",true);
+            editor.commit();
+        }
     }
 
     //Function to initialize the map components of the application
@@ -364,7 +377,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         if (checkLocation() && checkInternet()) {
             Log.e("Location", "Getting Location");
             location = getLocation();
-        } else if(!checkLocation() && checkInternet()){// if no location services are available then alert user
+        } else if (!checkLocation() && checkInternet()) {// if no location services are available then alert user
             Log.e("Location", "Check GPS failed");
             //Show message alerting user
             AlertDialog noLocation = new AlertDialog.Builder(this).create();
@@ -392,7 +405,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
             });
 
             noLocation.show();
-        }else if(!checkInternet()){
+        } else if (!checkInternet()) {
             AlertDialog noInternet = new AlertDialog.Builder(context).create();
             noInternet.setTitle("Connection Error");
             noInternet.setMessage("There is no internet available to use the application. Please enable Wi-Fi or Mobile Data and restart the application.");
@@ -415,7 +428,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         mTitle = getTitle();
 
         viewOptions = getResources().getStringArray(R.array.view_array);
-        recommendOptions  = getResources().getStringArray(R.array.recommender_crops);
+        recommendOptions = getResources().getStringArray(R.array.recommender_crops);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -438,10 +451,10 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                     layout = inflater.inflate(R.layout.legend_soils, (ViewGroup) findViewById(R.id.legend_Soils));
                 } else if (option.equalsIgnoreCase("rainfall")) {
                     layout = inflater.inflate(R.layout.legend_rainfall, (ViewGroup) findViewById(R.id.legend_rainfall));
-                } else if (option.equalsIgnoreCase("landUse")){
+                } else if (option.equalsIgnoreCase("landUse")) {
                     layout = inflater.inflate(R.layout.legend_landuse, (ViewGroup) findViewById(R.id.legend_landUse));
-                } else if (appMode==false){
-                 //   layout = inflater.inflate(R.layout.legend_landuse, (ViewGroup) findViewById(R.id.legend_landUse));
+                } else if (appMode == false) {
+                    //   layout = inflater.inflate(R.layout.legend_landuse, (ViewGroup) findViewById(R.id.legend_landUse));
                 }
 
                 yourDialog.setTitle("Legend");
@@ -738,7 +751,11 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
+        try {
+            getSupportActionBar().setTitle(mTitle);
+        }catch(Exception e){
+            Log.e("Set Title","Exception: "+e);
+        }
     }
 
     @Override
@@ -793,29 +810,36 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 // no network provider is enabled a notice will be delivered to the user
                 return false;
             } else if (isGPSEnabled && !isNetworkEnabled) {
-                if(currentToast!=null) {
+                if (currentToast != null) {
                     currentToast.cancel();
                 }
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Location");
-                builder.setMessage("Location finding is set to GPS only which takes 5-10 minutes to locate user. For fast location" +
-                        " finding, use Wi-Fi or the Network Provider in Location Settings of device. Press yes to" +
-                        " be forwarded to Location Setting Screen otherwise press No to continue using GPS.")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                lm.removeUpdates(locationListener);
-                                MapActivity.this.finish();
-                                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
+
+                if(appStart == false) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Location");
+                    builder.setMessage("Location finding is set to GPS only which takes 5-10 minutes to locate user. For fast location" +
+                            " finding, use Wi-Fi or the Network Provider in Location Settings of device. Press yes to" +
+                            " be forwarded to Location Setting Screen otherwise press No to continue using GPS.")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    try {
+                                        lm.removeUpdates(locationListener);
+                                    } catch (SecurityException e) {
+
+                                    }
+                                    MapActivity.this.finish();
+                                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
                 return true;
             } else {
                 // location manager will be able to return a location
@@ -835,7 +859,11 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         if (progressDialog!=null&&progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
-        lm.removeUpdates(locationListener);
+        try {
+            lm.removeUpdates(locationListener);
+        }catch(SecurityException e){
+
+        }
         //Check if map was already loaded
         //Once user's location is retrieved then set the current focus of the map to the user
         if (location == null && previousLocation == null) {
@@ -953,11 +981,10 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     //the option selected by the user to fetch the necessary information from the cache or from the
     //server.
     private void selectItem(int position) {
-        int savedPos = position;
         try {
             if (appMode == false) {
                 if (currPos == -1) {
-                    currPos = 8;
+                    currPos = countProfileOptions+1;
                 }
                 if (position == 1)
                     position = currPos;
@@ -1052,7 +1079,12 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
             } else {
                 // First get location from Network Provider
                 if (isNetworkEnabled) {
-                    lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
+                    try {
+                        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
+                    }catch(SecurityException e){
+
+                    }
+
                     Log.d("Network", "Network Enabled");
                     if (lm != null) {
                         //    location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -1061,8 +1093,11 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 //get the location by gps
                 if (isGPSEnabled) {
                     if (location == null) {
-                        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
-                        Log.d("GPS Enabled", "GPS Enabled" + lm.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+                        try {
+                            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+                        }catch (SecurityException e){
+
+                        }
                         if (lm != null) {
                             //        location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                         }
@@ -1385,7 +1420,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
                 Log.i("inside fetch", "params[1] is:" + params[1] + option);
                 URL work = new URL(url + "/" + option + "/" + params[0] + "&" + params[1]);
                 URLConnection connection = work.openConnection();
-                connection.setReadTimeout(15000);
+                connection.setReadTimeout(60000);
                 InputStream inputStream = connection.getInputStream();
                 kmlDocument = new KmlDocument();
                 long total = 0;
@@ -1491,27 +1526,20 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         protected String doInBackground(String... params) {
             try {
                 StringBuilder builder = new StringBuilder();
-                HttpClient client = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet(url + "/closeObjects/" + params[0]);
-                try {
-                    HttpResponse response = client.execute(httpGet);
-                    StatusLine statusLine = response.getStatusLine();
-                    int statusCode = statusLine.getStatusCode();
-                    if (statusCode == 200) {
-                        HttpEntity entity = response.getEntity();
-                        InputStream content = entity.getContent();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            builder.append(line);
-                        }
-                    } else {
-                        Log.e("Async Error", "Failed to download JSON object");
+                URL fetchUrl = new URL(url + "/closeObjects/" + params[0]);
+                HttpURLConnection conn =(HttpURLConnection) fetchUrl.openConnection();
+                conn.setConnectTimeout(60000);
+                conn.setReadTimeout(180000);
+                conn.connect();
+                int statusCode = conn.getResponseCode();
+                if (statusCode == 200) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        builder.append(line);
                     }
-                } catch (ClientProtocolException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } else {
+                    Log.e("Async Error", "Failed to download JSON object");
                 }
                 return builder.toString();
             } catch (Exception e) {
@@ -1556,31 +1584,24 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         protected String doInBackground(String... params) {
             try {
                 StringBuilder builder = new StringBuilder();
-                HttpClient client = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet(url + "/cropSpecifications/");
-                try {
-                    HttpResponse response = client.execute(httpGet);
-                    StatusLine statusLine = response.getStatusLine();
-                    int statusCode = statusLine.getStatusCode();
-                    if (statusCode == 200) {
-                        HttpEntity entity = response.getEntity();
-                        InputStream content = entity.getContent();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            builder.append(line);
-                        }
-                        return builder.toString();
-                    } else {
-                        Log.e("Async Error", "Failed to download JSON object");
-                        return "false";
+                URL fetchUrl = new URL(url + "/cropSpecifications/");
+                HttpURLConnection conn =(HttpURLConnection) fetchUrl.openConnection();
+                conn.setConnectTimeout(60000);
+                conn.setReadTimeout(180000);
+                conn.connect();
+                int statusCode = conn.getResponseCode();
+                if (statusCode == 200) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        builder.append(line);
                     }
-                } catch (Exception e) {
-                    Log.e("Async Error", "The error is " + e);
+                } else {
+                    Log.e("Async Error", "Failed to download JSON object");
                 }
-
+                return builder.toString();
             } catch (Exception e) {
-                Log.e("Async Error", "The request was" + url + "/" + option + "/" + params[0]);
+                Log.e("Async Error", "The request was" + url + "/" + option);
                 Log.e("Async Error", "The error is " + e);
             }
             return "false";

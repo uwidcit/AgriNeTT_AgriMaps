@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colourPM">#8001DF01</color>
+ 	<color name="colourChem">#806A0888</color>
+ 	<color name="colourFer">#800431B4</color>
+ 	<color name="colourSoil">#8061380B</color>
+ 	<color name="colourOther">#80E60000</color>
+    <color name="colourLabour">#80D7DF01</color>
+
+
+    <!-- Generated using http://www.materialpalette.com/light-green/grey-->
+    <color name="primary_dark">#689F38</color>
+    <color name="primary">#8BC34A</color>
+    <color name="primary_light">#8BC34A</color>
+    <color name="icons">#212121</color>
+    <color name="accent_color">#9E9E9E</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="divider_color">#B6B6B6</color>
+
+
+    <color name="helper_text_color">#000000</color>
+    <color name="helper_text_error">#ff0000</color>
+
+    <color name="text_selected">#888</color>
+    <color name="transparent_bg">#fff</color>
+</resources>
