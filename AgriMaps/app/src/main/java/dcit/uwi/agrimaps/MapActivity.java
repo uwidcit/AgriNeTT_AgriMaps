@@ -1,5 +1,6 @@
 package dcit.uwi.agrimaps;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -84,7 +85,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-public class MapActivity extends ActionBarActivity implements MapEventsReceiver {
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class MapActivity extends ActionBarActivity implements MapEventsReceiver,EasyPermissions.PermissionCallbacks {
     //Drawer Variables
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -221,6 +224,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     //This hashmap is used to store descriptions which are being parsed for the recommender
     private HashMap<String, String> hash = new HashMap<>();
 
+    private final int LOCATION_STORAGE_CODE = 101;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -238,16 +242,32 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
         currPos = 1;
         setContentView(R.layout.activity_map);
 
-        //Initialize Map settings
-        mapInit(savedInstanceState);
+
+        runInitFunctions();
 
         //Initialize Drawer set
         drawerInit(savedInstanceState);
-
         //Start the tutorial while loading is taking place, tutorial only occurs if the user is launching the application for first time
         firstStartup();
 
         appStart = true;
+
+
+
+    }
+
+    private void runInitFunctions(){
+
+        String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            //Initialize Map settings
+            mapInit();
+        } else {
+            // Do not have permissions, request them now
+            EasyPermissions.requestPermissions(this, "Please note that this Application Requires Location and Storage Permissions to function properly.",
+                    LOCATION_STORAGE_CODE, perms);
+        }
     }
 
     @Override
@@ -294,7 +314,7 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
     }
 
     //Function to initialize the map components of the application
-    private void mapInit(Bundle savedInstanceState) {
+    private void mapInit() {
         //AsyncLocation locationProcess = new AsyncLocation();
         //locationProcess.execute();
         // Start to initialize the map settings
@@ -2313,5 +2333,39 @@ public class MapActivity extends ActionBarActivity implements MapEventsReceiver 
             amt = "2479-2700mm";
         }
         return amt;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        if(requestCode==LOCATION_STORAGE_CODE){
+            //Initialize Map settings
+            mapInit();
+        }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> list) {
+        if(requestCode==LOCATION_STORAGE_CODE){
+            new AlertDialog.Builder(this)
+                    .setTitle("Permissions Denied")
+                    .setMessage("Please Note that the application cannot run without the necessary permissions granted. Please restart app and enable permissions."+
+                    " Please check permissions in App Settings if issues persist.")
+                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            android.os.Process.killProcess(android.os.Process.myPid());
+                        }
+                    }).create().show();
+
+
+        }
     }
 }

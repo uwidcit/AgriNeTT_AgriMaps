@@ -8,8 +8,8 @@ android {
         applicationId "dcit.uwi.agrimaps"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 7
-        versionName "1.5"
+        versionCode 8
+        versionName "1.6"
     }
     buildTypes {
         release {
@@ -29,4 +29,5 @@ dependencies {
     compile 'org.osmdroid:osmdroid-android:5.0.1@aar'
     compile 'com.github.MKergall.osmbonuspack:OSMBonusPack:v5.6'
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'pub.devrel:easypermissions:0.1.9'
 }
