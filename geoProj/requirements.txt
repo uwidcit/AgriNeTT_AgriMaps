@@ -1,0 +1,11 @@
+Django==1.7.5
+django-leaflet==0.16.0
+gunicorn==19.2.1
+nano==0.9.1
+numpy==1.9.1
+psycopg2==2.6
+pyproj==1.9.4
+simplejson==3.6.5
+vectorformats==0.1
+whitenoise==2.0.6
+wsgiref==0.1.2
